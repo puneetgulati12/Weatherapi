@@ -16,4 +16,14 @@
         android:orderInCategory="100"
         android:title="share"
         app:showAsAction="withText"/>
+    <item
+        android:id="@+id/refersh"
+        android:icon="@drawable/ic_refresh_black_24dp"
+        android:orderInCategory="100"
+        android:title="refersh"
+        app:showAsAction="always"/>
+
+
+
+
 </menu>
