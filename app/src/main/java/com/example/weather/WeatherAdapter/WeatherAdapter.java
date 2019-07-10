@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.weather.API.weatherApi;
 import com.example.weather.R;
 
 import java.util.ArrayList;
@@ -30,17 +29,18 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         weatherApi current =  weatherApis.get(position);
-        holder.temp.setText((CharSequence) current.main);
-        holder.city.setText(String.valueOf(current.getName()));
-        holder.humiditytemp.setText((CharSequence) current.main);
-        holder.wind.setText((CharSequence) current.main);
+
+        holder.temp.setText(current.main.getTemp());
+        holder.city.setText(current.getName());
+        holder.humiditytemp.setText(current.main.getHumidity());
+        holder.wind.setText(current.wind.getSpeed());
 
     }
 
 
     @Override
     public int getItemCount() {
-        return 0;
+        return weatherApis.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

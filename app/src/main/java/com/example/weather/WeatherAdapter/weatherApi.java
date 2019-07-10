@@ -1,13 +1,14 @@
-package com.example.weather.API;
+package com.example.weather.WeatherAdapter;
 
 public class weatherApi {
 
-    private String name;
-   public coord coord;
-   wind wind;
-   sys sys;
+    public String name;
+   public Cord coord;
+   public  Wynd wind;
+  public Sis sys;
 
-   public  main main = null;
+   public  Ma main = null;
+
 
     public weatherApi(String name) {
         this.name = name;
@@ -16,14 +17,16 @@ public class weatherApi {
     public String getName() {
         return name;
     }
+
+
 }
 
 
-   class coord {
-        private int lon, lat;
+   class Cord {
+        public int lon, lat;
 
 
-        public coord() {
+        public Cord() {
             this.lon = lon;
             this.lat = lat;
         }
@@ -37,10 +40,10 @@ public class weatherApi {
         }
     }
 
-    class main{
-        private int temp , humidity;
+    class Ma{
+        public int temp , humidity;
 
-        public main(int temp, int humidity) {
+        public Ma(int temp, int humidity) {
             this.temp = temp;
             this.humidity = humidity;
         }
@@ -54,10 +57,10 @@ public class weatherApi {
         }
     }
 
-    class  wind{
-        private int Speed;
+    class  Wynd{
+        public int Speed;
 
-        public wind(int speed) {
+        public Wynd(int speed) {
             Speed = speed;
         }
 
@@ -67,10 +70,10 @@ public class weatherApi {
     }
 
 
-    class sys{
-        private String country;
+    class Sis{
+        public String country;
 
-        public sys(String country) {
+        public Sis(String country) {
             this.country = country;
         }
 
