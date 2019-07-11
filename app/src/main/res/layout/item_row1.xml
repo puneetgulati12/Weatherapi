@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:shadowRadius="1.6"
+            android:textColor="#325C74"
+            android:textSize="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="10dp"
+            android:id="@+id/day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Monday" />
+
+        <TextView
+            android:textColor="#325C74"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/desc"
+            android:textSize="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="abcd" />
+
+        <ImageView
+            android:layout_marginTop="6.5dp"
+            android:scrollbarSize="@android:dimen/app_icon_size"
+            android:id="@+id/weatherimage"
+            android:layout_width="119dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="67dp"
+            android:layout_toRightOf="@id/day"
+            android:src="@drawable/suncloud" />
+
+        <TextView
+            android:textSize="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="105dp"
+            android:layout_marginBottom="33dp"
+            android:layout_toRightOf="@id/weatherimage"
+            android:text="93" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="75dp"
+            android:background="#325C74" />
+    </RelativeLayout>
+
+</RelativeLayout>

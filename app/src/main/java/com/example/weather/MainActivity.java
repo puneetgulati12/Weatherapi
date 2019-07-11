@@ -46,7 +46,7 @@ import java.util.Locale;
 
 
 public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener, LocationListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
-    private static final int PERMISSION_ACCESS_COARSE_LOCATION = 1;
+    private static final int PERMISSION_ACCESS_FINE_LOCATION = 1;
     private static final String APP_ID = "352e84b0ebdd052bca879172b8cf1bae";
     private ViewPager viewPager;
 
@@ -98,9 +98,9 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
 
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, PERMISSION_ACCESS_COARSE_LOCATION);
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSION_ACCESS_FINE_LOCATION);
         }
 
         googleApiClient = new GoogleApiClient.Builder(this, this, this).addApi(LocationServices.API).build();
@@ -278,10 +278,10 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
         switch (requestCode) {
-            case PERMISSION_ACCESS_COARSE_LOCATION:
+            case PERMISSION_ACCESS_FINE_LOCATION:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     if (locationManager != null) {
-                        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                             // TODO: Consider calling
                             //    Activity#requestPermissions
                             // here to request the missing permissions, and then overriding
@@ -301,6 +301,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
                     }
                     // All good!
                 } else {
+
                     boolean isGPSEnabled = locationManager
                             .isProviderEnabled(LocationManager.GPS_PROVIDER);
                     if (!isGPSEnabled) {
@@ -337,6 +338,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
 
                 break;
         }
+
     }
 
     @Override
@@ -359,16 +361,17 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
 
         Log.i(MainActivity.class.getSimpleName(), "Connected to Google Play Services!");
 
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
 
-            Location lastLocation = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
-//
-            double lat = lastLocation.getLatitude(), lon = lastLocation.getLongitude();
-            String units = "imperial";
-            String url = String.format("http://api.openweathermap.org/data/2.5/weather?lat=%f&lon=%f&units=%s&appid=%s",
-                    lat, lon, units, APP_ID);
+//            Location lastLocation = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
+////
+//            double lat = lastLocation.getLatitude(), lon = lastLocation.getLongitude();
+//            String units = "imperial";
+//            String url = String.format("http://api.openweathermap.org/data/2.5/weather?lat=%f&lon=%f&units=%s&appid=%s",
+//                    lat, lon, units, APP_ID);
 //            new GetWeatherTask(textView).execute(url);
+
 
         }
 
