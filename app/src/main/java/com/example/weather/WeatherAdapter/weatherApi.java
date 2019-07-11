@@ -41,18 +41,17 @@ public class weatherApi {
     }
 
     class Ma{
-        public int temp , humidity;
-
-        public Ma(int temp, int humidity) {
+        public float temp , humidity;
+        public Ma(float temp, float humidity) {
             this.temp = temp;
             this.humidity = humidity;
         }
 
-        public int getTemp() {
+        public float getTemp() {
             return temp;
         }
 
-        public int getHumidity() {
+        public float getHumidity() {
             return humidity;
         }
     }
