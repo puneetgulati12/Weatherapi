@@ -103,43 +103,46 @@ public class Tab1 extends Fragment implements  GoogleApiClient.OnConnectionFaile
                                 Gson gson = new Gson();
 
 
-                                weatherApi myobj = gson.fromJson(result, weatherApi.class);
-                                float abcd = myobj.main.getTemp();
-
-                                TextView textView = view.findViewById(R.id.temp);
-
-                                textView.setText(String.valueOf(abcd));
-                                float abcde = myobj.main.getTemp();
+                                final weatherApi myobj = gson.fromJson(result, weatherApi.class);
 
 
+                                    getActivity().runOnUiThread(new Thread( new Runnable(){
+                                   public void run(){
+                                       float abcd = myobj.main.getTemp();
 
-                                TextView textVie = view.findViewById(R.id.humiditytemp);
+                                       TextView textView = view.findViewById(R.id.temp);
 
-                                textVie.setText(String.valueOf(abcde));
+                                       textView.setText(String.valueOf(abcd));
+                                       float abcde = myobj.main.getTemp();
 
-                                int abc = myobj.wind.getSpeed();
+                                       TextView textVie = view.findViewById(R.id.humiditytemp);
 
-                                TextView textVi = view.findViewById(R.id.wind);
+                                       textVie.setText(String.valueOf(abcde));
 
-                                textVi.setText(String.valueOf(abc));
+                                       int abc = myobj.wind.getSpeed();
+
+                                       TextView textVi = view.findViewById(R.id.wind);
+
+                                       textVi.setText(String.valueOf(abc));
 
 
-                                if (myobj.getName() == null) {
+                                       if (myobj.getName() == null) {
 
-                                    try {
-                                        String a = myobj.getName();
+                                           try {
+                                               String a = myobj.getName();
 
-                                        TextView text = view.findViewById(R.id.city);
-                                        text.setText(a);
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
-                                }
+                                               TextView text = view.findViewById(R.id.city);
+                                               text.setText(a);
+                                           } catch (Exception e) {
+                                               e.printStackTrace();
+                                           }
+                                       }
 
-                            }
-                        });
+                                   }
 
-                    }
+                                        }));
+
+                                }}}
 
                     @Override
                     public void onStatusChanged(String s, int i, Bundle bundle) {
