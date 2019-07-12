@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.weather.R;
 import com.google.gson.Gson;
@@ -72,27 +73,32 @@ public class Tab3 extends Fragment {
                                 Log.e("response", myresponse);
                                 String result = myresponse;
                                 Gson gson = new Gson();
-                                Root myobj = gson.fromJson(result, Root.class);
+                                final Root myobj = gson.fromJson(result, Root.class);
 
-
+                                if(getActivity() == null)
+                                    return;
 //                                RecyclerView recyclerView = view.findViewById(R.id.recylervv);
 //                                recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 //                                recyclerView.setAdapter(new RootAdapter() );
+                                getActivity().runOnUiThread(new Thread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        float abcd = myobj.main.getTemp_max();
+                                        TextView textView = view.findViewById(R.id.tempmax);
 
+                                        textView.setText(String.valueOf(abcd));
 
-//                                float abcd = myobj.main.getTempmax();
-//                                TextView textView = view.findViewById(R.id.tempmax);
-//
-//                                textView.setText(String.valueOf(abcd));
-//
-//                                float abc = myobj.main.getTempmin();
-//                                TextView textVie = view.findViewById(R.id.tempmin);
-//
-//                                textVie.setText(String.valueOf(abc));
-//
-//                                String a = myobj.name.getName();
-//                                TextView text = view.findViewById(R.id.city);
-//                                text.setText(a);
+                                        float abc = myobj.main.getTemp_min();
+                                        TextView textVie = view.findViewById(R.id.tempmin);
+
+                                        textVie.setText(String.valueOf(abc));
+
+                                        String a = myobj.name.getName();
+                                        TextView text = view.findViewById(R.id.city);
+                                        text.setText(a);
+                                    }
+                                }));
+
 
                             }
 

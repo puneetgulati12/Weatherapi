@@ -1,9 +1,9 @@
 package com.example.weather.Details;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class Root {
-    public Ma main;
+ public listt.Ma main;
 
     public sity name;
 
@@ -17,31 +17,33 @@ public class Root {
         return dt_txt;
     }
 
-    ArrayList<String> list = new ArrayList<String>();
+
+   List<listt> list;
 }
 
-class Ma{
-    public float tempmin , tempmax;
 
-    public Ma(float tempmin, float tempmax) {
-        this.tempmin = tempmin;
-        this.tempmax = tempmax;
-    }
+class listt{
 
-    public float getTempmin() {
-        return tempmin;
-    }
 
-    public float getTempmax() {
-        return tempmax;
+    class Ma {
+        public float temp_min, temp_max;
+
+        public Ma(float tempmin, float tempmax) {
+            this.temp_min = tempmin;
+            this.temp_max = tempmax;
+        }
+
+        public float getTemp_min() {
+            return temp_min;
+        }
+
+        public float getTemp_max() {
+            return temp_max;
+        }
     }
 }
 
-class  weather{
-    ArrayList<String> weather = new ArrayList<>();
-
-}
-class sity{
+class sity {
     public String name;
 
     public sity(String name) {

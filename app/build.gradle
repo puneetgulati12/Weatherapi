@@ -53,7 +53,7 @@ dependencies {
     implementation 'com.android.support:cardview-v7:28.0.0-alpha3'
 
     //graph dependency
-
+    implementation 'com.squareup.okhttp:okhttp-urlconnection:2.4.0'
     implementation 'com.github.lecho:hellocharts-library:1.5.8@aar'
 
     implementation 'com.squareup.okhttp3:okhttp:3.0.0-RC1'

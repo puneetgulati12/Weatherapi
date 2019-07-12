@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/weather">
+
     <RelativeLayout
 
         android:layout_width="match_parent"
@@ -11,34 +12,34 @@
         android:orientation="vertical">
 
         <TextView
-            android:shadowRadius="1.6"
-            android:textColor="#FFFFFF"
-            android:textSize="20dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginStart="10dp"
             android:id="@+id/day"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Monday" />
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:shadowRadius="1.6"
+            android:text="Monday"
+            android:textColor="#FFFFFF"
+            android:textSize="20dp" />
 
         <TextView
-            android:textColor="#FFFFFF"
-            android:layout_marginLeft="10dp"
             android:id="@+id/desc"
-            android:textSize="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:layout_marginTop="40dp"
-            android:text="abcd" />
+            android:text="few clouds"
+            android:textColor="#FFFFFF"
+            android:textSize="15dp" />
 
         <ImageView
-            android:layout_marginTop="6.5dp"
-            android:scrollbarSize="@android:dimen/app_icon_size"
             android:id="@+id/weatherimage"
             android:layout_width="119dp"
             android:layout_height="50dp"
             android:layout_marginLeft="67dp"
+            android:layout_marginTop="6.5dp"
             android:layout_toRightOf="@id/day"
+            android:scrollbarSize="@android:dimen/app_icon_size"
             android:src="@drawable/suncloud" />
 
         <TextView
@@ -50,7 +51,8 @@
             android:layout_marginBottom="34dp"
             android:layout_toRightOf="@id/weatherimage"
             android:text="93"
-            android:textSize="20dp" />
+            android:textSize="20dp"
+            />
 
         <TextView
             android:id="@+id/tempmin"

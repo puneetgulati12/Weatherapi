@@ -103,7 +103,8 @@ public class Tab1 extends Fragment implements GoogleApiClient.OnConnectionFailed
 
 
                                 final weatherApi myobj = gson.fromJson(result, weatherApi.class);
-
+                                if(getActivity() == null)
+                                    return;
 
                                 getActivity().runOnUiThread(new Thread(new Runnable() {
                                     public void run() {

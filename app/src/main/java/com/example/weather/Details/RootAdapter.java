@@ -28,8 +28,8 @@ public class RootAdapter extends RecyclerView.Adapter<RootAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Root current = roots.get(position);
 
-        holder.tempmax.setText(String.valueOf(current.main.getTempmax()));
-        holder.tempmin.setText(String.valueOf(current.main.getTempmin()));
+        holder.tempmax.setText(String.valueOf(current.main.getTemp_max()));
+        holder.tempmin.setText(String.valueOf(current.main.getTemp_min()));
         holder.name.setText(current.name.getName());
 
 
