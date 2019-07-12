@@ -14,7 +14,7 @@ public class weatherApi {
         this.name = name;
     }
 
-    public String getName() {
+    public String getname() {
         return name;
     }
 
@@ -23,7 +23,7 @@ public class weatherApi {
 
 
    class Cord {
-        public int lon, lat;
+        public float lon, lat;
 
 
         public Cord() {
@@ -31,11 +31,11 @@ public class weatherApi {
             this.lat = lat;
         }
 
-        public int getLon() {
+        public float getLon() {
             return lon;
         }
 
-        public int getLat() {
+        public float getLat() {
             return lat;
         }
     }
@@ -57,14 +57,14 @@ public class weatherApi {
     }
 
     class  Wynd{
-        public int Speed;
+        public float speed;
 
-        public Wynd(int speed) {
-            Speed = speed;
+        public Wynd(float speed) {
+            this.speed = speed;
         }
 
-        public int getSpeed() {
-            return Speed;
+        public float getSpeed() {
+            return speed;
         }
     }
 

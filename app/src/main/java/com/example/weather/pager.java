@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import com.example.weather.Details.Tab3;
 import com.example.weather.WeatherAdapter.Tab1;
 
 public class pager extends FragmentStatePagerAdapter {

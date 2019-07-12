@@ -32,14 +32,13 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class Tab1 extends Fragment implements  GoogleApiClient.OnConnectionFailedListener, LocationListener, GoogleApiClient.ConnectionCallbacks {
+public class Tab1 extends Fragment implements GoogleApiClient.OnConnectionFailedListener, LocationListener, GoogleApiClient.ConnectionCallbacks {
 
     public Context context;
     private static final String APP_ID = "352e84b0ebdd052bca879172b8cf1bae";
     private GoogleApiClient googleApiClient;
     LocationRequest locationRequest;
     Location currentloc;
-
 
 
     @Override
@@ -67,14 +66,14 @@ public class Tab1 extends Fragment implements  GoogleApiClient.OnConnectionFaile
 //        ;
 //        googleApiClient.connect();
 
-        final LocationManager locationManager = (LocationManager) getActivity().getSystemService (Context.LOCATION_SERVICE);
+        final LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
 
         locationManager.requestLocationUpdates(
-                LocationManager.GPS_PROVIDER, 5000, 10,new LocationListener(){
+                LocationManager.GPS_PROVIDER, 5000, 10, new LocationListener() {
                     @Override
                     public void onLocationChanged(Location location) {
-                       double lat =  27;
-                     double lon = 78;
+                        double lat = location.getLatitude();
+                        double lon = location.getLongitude();
 
                         String units = "imperial";
 
@@ -106,43 +105,47 @@ public class Tab1 extends Fragment implements  GoogleApiClient.OnConnectionFaile
                                 final weatherApi myobj = gson.fromJson(result, weatherApi.class);
 
 
-                                    getActivity().runOnUiThread(new Thread( new Runnable(){
-                                   public void run(){
-                                       float abcd = myobj.main.getTemp();
+                                getActivity().runOnUiThread(new Thread(new Runnable() {
+                                    public void run() {
+                                        float abcd = myobj.main.getTemp();
 
-                                       TextView textView = view.findViewById(R.id.temp);
+                                        TextView textView = view.findViewById(R.id.temp);
 
-                                       textView.setText(String.valueOf(abcd));
-                                       float abcde = myobj.main.getTemp();
+                                        textView.setText(String.valueOf(abcd));
+                                        float abcde = myobj.main.getHumidity();
 
-                                       TextView textVie = view.findViewById(R.id.humiditytemp);
+                                        TextView textVie = view.findViewById(R.id.humiditytemp);
 
-                                       textVie.setText(String.valueOf(abcde));
+                                        textVie.setText(String.valueOf(abcde));
 
-                                       int abc = myobj.wind.getSpeed();
+                                        float abc = myobj.wind.getSpeed();
 
-                                       TextView textVi = view.findViewById(R.id.wind);
+                                        TextView textVi = view.findViewById(R.id.wind);
 
-                                       textVi.setText(String.valueOf(abc));
+                                        textVi.setText(String.valueOf(abc));
 
 
-                                       if (myobj.getName() == null) {
+                                        if (myobj.getname().isEmpty()) {
 
-                                           try {
-                                               String a = myobj.getName();
+                                            try {
+                                                String a = myobj.getname();
 
-                                               TextView text = view.findViewById(R.id.city);
-                                               text.setText(a);
-                                           } catch (Exception e) {
-                                               e.printStackTrace();
-                                           }
-                                       }
+                                                TextView text = view.findViewById(R.id.city);
+                                                text.setText(a);
+                                            } catch (Exception e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
 
-                                   }
+                                    }
 
-                                        }));
+                                }));
 
-                                }}}
+                            }
+                        });
+                    }
+
+                    ;
 
                     @Override
                     public void onStatusChanged(String s, int i, Bundle bundle) {
@@ -159,8 +162,6 @@ public class Tab1 extends Fragment implements  GoogleApiClient.OnConnectionFaile
 
                     }
                 });
-
-
 
 
         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {

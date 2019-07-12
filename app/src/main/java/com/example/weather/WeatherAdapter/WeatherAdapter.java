@@ -31,9 +31,9 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
         weatherApi current =  weatherApis.get(position);
 
         holder.temp.setText(String.valueOf(current.main.getTemp()));
-        holder.city.setText(current.getName());
+        holder.city.setText(current.getname());
         holder.humiditytemp.setText(String.valueOf(current.main.getHumidity()));
-        holder.wind.setText(current.wind.getSpeed());
+        holder.wind.setText(String.valueOf(current.wind.getSpeed()));
 
     }
 
@@ -49,7 +49,7 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-city = itemView.findViewById(R.id.city);
+            city = itemView.findViewById(R.id.city);
             temp = itemView.findViewById(R.id.temp);
             humiditytemp = itemView.findViewById(R.id.humiditytemp);
             wind = itemView.findViewById(R.id.wind);
