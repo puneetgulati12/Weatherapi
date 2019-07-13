@@ -10,11 +10,11 @@ import android.widget.TextView;
 
 import com.example.weather.R;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class RootAdapter extends RecyclerView.Adapter<RootAdapter.ViewHolder> {
 
-    private ArrayList<Root> roots;
+    private List<Data> roots;
     private Context context;
     @NonNull
     @Override
@@ -26,11 +26,15 @@ public class RootAdapter extends RecyclerView.Adapter<RootAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Root current = roots.get(position);
+        Data current = roots.get(position);
 
-        holder.tempmax.setText(String.valueOf(current.main.getTemp_max()));
-        holder.tempmin.setText(String.valueOf(current.main.getTemp_min()));
-        holder.name.setText(current.name.getName());
+        holder.tempmax.setText(String.valueOf(current.temperatureMin));
+        holder.tempmax.setText(String.valueOf(current.temperatureMax));
+        holder.con.setText(current.icon);
+
+//        holder.tempmax.setText(String.valueOf(current.);
+//        holder.tempmin.setText(String.valueOf(current.main.getTemp_min()));
+//        holder.name.setText(current.name.getName());
 
 
     }
@@ -42,10 +46,10 @@ public class RootAdapter extends RecyclerView.Adapter<RootAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-private TextView tempmax , tempmin , name;
+private TextView tempmax , tempmin , con;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            name = itemView.findViewById(R.id.city);
+            con = itemView.findViewById(R.id.desc);
             tempmax = itemView.findViewById(R.id.tempmax);
             tempmin = itemView.findViewById(R.id.tempmin);
         }

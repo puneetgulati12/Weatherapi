@@ -8,16 +8,18 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.example.weather.R;
 import com.google.gson.Gson;
 
 import java.io.IOException;
+import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -26,7 +28,8 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class Tab3 extends Fragment {
-    private String APP_ID = "352e84b0ebdd052bca879172b8cf1bae";
+    private String APP_ID = "4bc4569198b322379190faa7310c16c0";
+    private RecyclerView recyclerView;
 
 
     @Override
@@ -51,10 +54,9 @@ public class Tab3 extends Fragment {
                         double lat = location.getLatitude();
                         double lon = location.getLongitude();
 
-                        String units = "imperial";
 
-                        final String baseurl = String.format("http://api.openweathermap.org/data/2.5/forecast?lat=%f&lon=%f&units=%s&appid=%s",
-                                lat, lon, units, APP_ID);
+                        final String baseurl = String.format("https://api.darksky.net/forecast/%s/%f,%f?exclude=[hourly,minutely,currently,flags]"
+                                ,APP_ID, lat, lon);
                         Log.e("api", baseurl);
 
                         OkHttpClient client = new OkHttpClient();
@@ -74,28 +76,19 @@ public class Tab3 extends Fragment {
                                 String result = myresponse;
                                 Gson gson = new Gson();
                                 final Root myobj = gson.fromJson(result, Root.class);
+                                final List<Data> mylist = myobj.daily.data;
 
                                 if(getActivity() == null)
                                     return;
-//                                RecyclerView recyclerView = view.findViewById(R.id.recylervv);
-//                                recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-//                                recyclerView.setAdapter(new RootAdapter() );
+//
                                 getActivity().runOnUiThread(new Thread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        float abcd = myobj.main.getTemp_max();
-                                        TextView textView = view.findViewById(R.id.tempmax);
 
-                                        textView.setText(String.valueOf(abcd));
+                                        RecyclerView recyclerView =  view.findViewById(R.id.recylervv);
+                                        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                                        recyclerView.setAdapter((RecyclerView.Adapter) mylist);
 
-                                        float abc = myobj.main.getTemp_min();
-                                        TextView textVie = view.findViewById(R.id.tempmin);
-
-                                        textVie.setText(String.valueOf(abc));
-
-                                        String a = myobj.name.getName();
-                                        TextView text = view.findViewById(R.id.city);
-                                        text.setText(a);
                                     }
                                 }));
 

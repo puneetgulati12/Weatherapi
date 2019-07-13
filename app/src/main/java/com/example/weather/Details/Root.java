@@ -3,54 +3,21 @@ package com.example.weather.Details;
 import java.util.List;
 
 public class Root {
- public listt.Ma main;
-
-    public sity name;
-
-    public String dt_txt;
-
-    public Root(String dt_txt) {
-        this.dt_txt = dt_txt;
-    }
-
-    public String dt_txt() {
-        return dt_txt;
-    }
-
-
-   List<listt> list;
+    public DataList daily;
 }
-
-
-class listt{
-
-
-    class Ma {
-        public float temp_min, temp_max;
-
-        public Ma(float tempmin, float tempmax) {
-            this.temp_min = tempmin;
-            this.temp_max = tempmax;
-        }
-
-        public float getTemp_min() {
-            return temp_min;
-        }
-
-        public float getTemp_max() {
-            return temp_max;
-        }
-    }
+class  DataList{
+    public List<Data> data;
 }
+class Data {
 
-class sity {
-    public String name;
+ public    float temperatureMin;
+ public    float temperatureMax;
+  public   String icon;
 
-    public sity(String name) {
-        this.name = name;
+    public Data(int temperatureMin, int temperatureMax, String icon) {
+        this.temperatureMin = temperatureMin;
+        this.temperatureMax = temperatureMax;
+        this.icon = icon;
     }
 
-    public String getName() {
-        return name;
-    }
 }
