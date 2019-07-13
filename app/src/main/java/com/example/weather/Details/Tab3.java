@@ -69,7 +69,7 @@ public class Tab3 extends Fragment {
                             }
 
                             @Override
-                            public void onResponse(Call call, Response response) throws IOException {
+                            public void onResponse(final Call call, final Response response) throws IOException {
 
                                 final String myresponse = response.body().string();
                                 Log.e("response", myresponse);
@@ -82,12 +82,20 @@ public class Tab3 extends Fragment {
                                     return;
 //
                                 getActivity().runOnUiThread(new Thread(new Runnable() {
+                                    private Object RootAdapter;
+
                                     @Override
                                     public void run() {
 
                                         RecyclerView recyclerView =  view.findViewById(R.id.recylervv);
-                                        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                                        recyclerView.setAdapter((RecyclerView.Adapter) mylist);
+                                        final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity() ,  LinearLayoutManager.VERTICAL,false);
+                                        recyclerView.setLayoutManager(layoutManager);
+
+                                        RootAdapter = new RootAdapter(mylist);
+                                        RootAdapter myAdapter = new RootAdapter(mylist, getActivity());
+                                        recyclerView.setAdapter(myAdapter);
+                                        //recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+//                                        recyclerView.setAdapter((RecyclerView.Adapter) mylist);
 
                                     }
                                 }));

@@ -16,11 +16,21 @@ public class RootAdapter extends RecyclerView.Adapter<RootAdapter.ViewHolder> {
 
     private List<Data> roots;
     private Context context;
+
+    public RootAdapter(List<Data> list, Context context){
+        roots=list;
+        this.context = context;
+    }
+
+    public RootAdapter(List<Data> mylist) {
+
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int itemview) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View inflatedview = inflater.inflate(R.layout.item_row1 , parent , false);
+        View inflatedview = inflater.inflate(R.layout.tab3 , parent , false);
         return new ViewHolder(inflatedview);
     }
 
