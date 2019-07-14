@@ -38,7 +38,7 @@ public class Tab3 extends Fragment {
         //Returning the layout file after inflating
         //Change R.layout.tab1 in you classes
 
-        View rootview = inflater.inflate(R.layout.item_row1, container, false);
+        View rootview = inflater.inflate(R.layout.tab3, container, false);
         return rootview;
     }
 

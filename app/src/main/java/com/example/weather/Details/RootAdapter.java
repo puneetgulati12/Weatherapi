@@ -30,7 +30,7 @@ public class RootAdapter extends RecyclerView.Adapter<RootAdapter.ViewHolder> {
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int itemview) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View inflatedview = inflater.inflate(R.layout.tab3 , parent , false);
+        View inflatedview = inflater.inflate(R.layout.item_row1 , parent , false);
         return new ViewHolder(inflatedview);
     }
 
