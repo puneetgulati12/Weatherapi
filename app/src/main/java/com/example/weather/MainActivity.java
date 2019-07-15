@@ -18,8 +18,10 @@ import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
@@ -28,13 +30,15 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.weather.Details.Tab3;
+import com.example.weather.WeatherAdapter.Tab1;
+import com.example.weather.Weatherdetails.Tab2;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
@@ -92,13 +96,13 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
 
         // making notification bar transparent
 //        changeStatusBarColor();
-        myViewPagerAdapter = new MyViewPagerAdapter();
+        myViewPagerAdapter = new MyViewPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(myViewPagerAdapter);
         viewPager.addOnPageChangeListener(viewPagerPageChangeListener);
 
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+      if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSION_ACCESS_FINE_LOCATION);
         }
@@ -112,27 +116,27 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
 
 
-        //Adding the tabs using addTab() method
-        tabLayout.addTab(tabLayout.newTab().setText("Tab1"));
-        tabLayout.addTab(tabLayout.newTab().setText("Tab2"));
-        tabLayout.addTab(tabLayout.newTab().setText("Tab3"));
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-
-
-        //Creating our pager adapter
-
-
-        pager adapter = new pager(getSupportFragmentManager(), tabLayout.getTabCount());
-
-        //Adding adapter to pager
-        viewPager.setAdapter(adapter);
-
-        //Adding onTabSelectedListener to swipe views
-        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
-
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-
-        tabLayout.setVisibility(View.GONE);
+//        //Adding the tabs using addTab() method
+//        tabLayout.addTab(tabLayout.newTab().setText("Tab1"));
+//        tabLayout.addTab(tabLayout.newTab().setText("Tab2"));
+//        tabLayout.addTab(tabLayout.newTab().setText("Tab3"));
+//        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+//
+//
+//        //Creating our pager adapter
+//
+//
+//        pager adapter = new pager(getSupportFragmentManager(), tabLayout.getTabCount());
+//
+//        //Adding adapter to pager
+//        viewPager.setAdapter(adapter);
+//
+//        //Adding onTabSelectedListener to swipe views
+//        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
+//
+//        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+//
+//        tabLayout.setVisibility(View.GONE);
         prefManager prefManager = new prefManager(getApplicationContext());
 
         // make first time launch TRUE
@@ -208,37 +212,34 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
     /**
      * View pager adapter
      */
-    public class MyViewPagerAdapter extends PagerAdapter {
+    public class MyViewPagerAdapter extends FragmentPagerAdapter {
         private LayoutInflater layoutInflater;
 
-        public MyViewPagerAdapter() {
+        public MyViewPagerAdapter(FragmentManager fm) {
+            super(fm);
         }
 
         @Override
-        public Object instantiateItem(ViewGroup container, int position) {
-            layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-            View view = layoutInflater.inflate(layouts[position], container, false);
-            container.addView(view);
-
-            return view;
+        public Fragment getItem(int position) {
+            switch (position) {
+                case 0:
+                    Tab1 tab1 = new Tab1();
+                    return tab1;
+                case 1:
+                    Tab2 tab2 = new Tab2();
+                    return tab2;
+                case 2:
+                    Tab3 tab3 = new Tab3();
+                    return tab3;
+                default:
+                    return null;
+            }
         }
+
 
         @Override
         public int getCount() {
-            return layouts.length;
-        }
-
-        @Override
-        public boolean isViewFromObject(View view, Object obj) {
-            return view == obj;
-        }
-
-
-        @Override
-        public void destroyItem(ViewGroup container, int position, Object object) {
-            View view = (View) object;
-            container.removeView(view);
+            return 3;
         }
     }
 
