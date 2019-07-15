@@ -2,8 +2,8 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/weather">
+    android:layout_height="wrap_content"
+    >
 
     <RelativeLayout
 
@@ -40,26 +40,26 @@
             android:layout_marginTop="6.5dp"
             android:layout_toRightOf="@id/day"
             android:scrollbarSize="@android:dimen/app_icon_size"
-            android:src="@drawable/suncloud" />
+            android:src="@drawable/cloudrain" />
 
         <TextView
             android:id="@+id/tempmax"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_marginLeft="60dp"
-            android:layout_marginBottom="34dp"
+            android:layout_marginLeft="28dp"
+            android:layout_marginBottom="31dp"
             android:layout_toRightOf="@id/weatherimage"
-            android:text="93"
-            android:textSize="20dp"
-            />
+            android:text="90"
+            android:textSize="20dp" />
 
         <TextView
             android:id="@+id/tempmin"
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_marginLeft="28dp"
+            android:layout_marginLeft="25dp"
             android:layout_marginBottom="31dp"
             android:layout_toRightOf="@id/tempmax"
             android:text="90"

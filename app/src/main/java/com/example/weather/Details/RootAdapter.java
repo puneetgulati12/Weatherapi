@@ -38,8 +38,8 @@ public class RootAdapter extends RecyclerView.Adapter<RootAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Data current = roots.get(position);
 
-        holder.tempmax.setText(String.valueOf(current.temperatureMin));
         holder.tempmax.setText(String.valueOf(current.temperatureMax));
+        holder.tempmin.setText(String.valueOf(current.temperatureMin));
         holder.con.setText(current.icon);
 
 //        holder.tempmax.setText(String.valueOf(current.);

@@ -136,7 +136,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
 //
 //        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 //
-//        tabLayout.setVisibility(View.GONE);
+  tabLayout.setVisibility(View.GONE);
         prefManager prefManager = new prefManager(getApplicationContext());
 
         // make first time launch TRUE

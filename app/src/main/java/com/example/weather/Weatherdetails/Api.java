@@ -1,15 +1,14 @@
 package com.example.weather.Weatherdetails;
 
-import java.util.List;
-
 public class Api {
-    public Datalist ma;
 
-    public List<list> lists;
+
+    public lists[] list ;
+
 }
-class list{
+class lists{
     public String dt_txt;
-    public list(String dt_txt) {
+    public lists(String dt_txt) {
         this.dt_txt = dt_txt;
     }
 

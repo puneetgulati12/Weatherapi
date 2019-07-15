@@ -14,10 +14,10 @@ import java.util.List;
 
 public class ApiAdapter extends RecyclerView.Adapter<ApiAdapter.ViewHolder> {
 
-    private List<list> roots;
+    private List<lists> roots;
     private Context context;
 
-    public ApiAdapter(List<list> mylist) {
+    public ApiAdapter(List<lists> mylist) {
 
     }
 
@@ -31,9 +31,9 @@ public class ApiAdapter extends RecyclerView.Adapter<ApiAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        list current = roots.get(position);
+        lists current = roots.get(position);
 
-        holder.time.setText(String.valueOf(current.getDt_txt()));
+        holder.time.setText(String.valueOf( current.getDt_txt()));
         holder.temp.setText(String.valueOf(current.main.getTemp()));
 
     }

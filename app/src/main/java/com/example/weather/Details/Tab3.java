@@ -1,6 +1,8 @@
 package com.example.weather.Details;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -14,6 +16,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.weather.R;
 import com.google.gson.Gson;
@@ -30,6 +34,8 @@ import okhttp3.Response;
 public class Tab3 extends Fragment {
     private String APP_ID = "4bc4569198b322379190faa7310c16c0";
     private RecyclerView recyclerView;
+    private ImageView imageView;
+   private TextView simple;
 
 
     @Override
@@ -45,6 +51,10 @@ public class Tab3 extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
+
+
+
+        imageView = view.findViewById(R.id.weatherimage);
         final LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
 
         locationManager.requestLocationUpdates(
@@ -87,15 +97,19 @@ public class Tab3 extends Fragment {
                                     @Override
                                     public void run() {
 
+
                                         RecyclerView recyclerView =  view.findViewById(R.id.recylervv);
                                         final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity() ,  LinearLayoutManager.VERTICAL,false);
                                         recyclerView.setLayoutManager(layoutManager);
 
                                         RootAdapter = new RootAdapter(mylist);
                                         RootAdapter myAdapter = new RootAdapter(mylist, getActivity());
+//                                        Date now = new Date();
+//                                        SimpleDateFormat simpleDateformat = new SimpleDateFormat("EEEE");
+//                                        simple =  view.findViewById(R.id.day);
+//                                        simple.setText(String.valueOf(simpleDateformat.format(now)));
                                         recyclerView.setAdapter(myAdapter);
-                                        //recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-//                                        recyclerView.setAdapter((RecyclerView.Adapter) mylist);
+
 
                                     }
                                 }));
@@ -126,4 +140,24 @@ public class Tab3 extends Fragment {
                 });
         super.onViewCreated(view, savedInstanceState);
     }
-}
+    @SuppressLint("ResourceType")
+    private void setWeatherIcon(){
+        Drawable myDrawable = getResources().getDrawable(R.drawable.clearnight);
+        imageView.setImageDrawable(myDrawable);
+        String id = "";
+//        String icon = "";
+
+            switch(id) {
+                case "one" : getActivity().getDrawable(R.drawable.cloudrain);
+                    break;
+                case "two" : getActivity().getDrawable(R.drawable.cloudrain);
+                    break;
+                default:
+                    getActivity().getDrawable(R.id.weatherimage);
+
+            }
+        }
+
+
+    }
+
