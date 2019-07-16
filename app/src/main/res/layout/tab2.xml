@@ -3,11 +3,11 @@
     android:orientation="vertical"
     android:id="@+id/root"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@drawable/weather">
 
 
-    <lecho.lib.hellocharts.view.LineChartView
+    <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/chart"
         android:layout_width="match_parent"
         android:layout_height="200dp" />
@@ -15,17 +15,17 @@
     android:layout_below="@id/chart"
     android:id="@+id/recylerv"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyler"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content" />
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="40dp"
         android:layout_centerInParent="true"
         android:background="#3B2196F3" />
 </RelativeLayout>

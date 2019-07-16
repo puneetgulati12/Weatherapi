@@ -30,6 +30,7 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         weatherApi current =  weatherApis.get(position);
 
+
         holder.temp.setText(String.valueOf(current.main.getTemp()));
         holder.city.setText(current.getname());
         holder.humiditytemp.setText(String.valueOf(current.main.getHumidity()));

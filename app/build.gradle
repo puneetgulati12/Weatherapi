@@ -54,7 +54,7 @@ dependencies {
 
     //graph dependency
     implementation 'com.squareup.okhttp:okhttp-urlconnection:2.4.0'
-    implementation 'com.github.lecho:hellocharts-library:1.5.8@aar'
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0-alpha'
 
     implementation 'com.squareup.okhttp3:okhttp:3.0.0-RC1'
     implementation 'com.google.code.gson:gson:2.8.5'

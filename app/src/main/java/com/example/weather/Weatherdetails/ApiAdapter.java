@@ -17,9 +17,12 @@ public class ApiAdapter extends RecyclerView.Adapter<ApiAdapter.ViewHolder> {
     private List<lists> roots;
     private Context context;
 
-    public ApiAdapter(List<lists> mylist) {
+    public ApiAdapter(List<lists> mylist , Context context) {
+        roots = mylist;
+        this.context = context;
 
     }
+
 
     @NonNull
     @Override
@@ -32,8 +35,9 @@ public class ApiAdapter extends RecyclerView.Adapter<ApiAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         lists current = roots.get(position);
-
-        holder.time.setText(String.valueOf( current.getDt_txt()));
+        String s = current.getDt_txt();
+       String a =  s.substring(s.indexOf(' ')+1);
+        holder.time.setText(a);
         holder.temp.setText(String.valueOf(current.main.getTemp()));
 
     }
