@@ -13,7 +13,7 @@
        android:layout_marginLeft="30dp"
        android:layout_marginTop="30dp"
        android:layout_marginEnd="54dp"
-       android:src="@drawable/sun2" />
+       android:src="@drawable/sun1" />
 
    <TextView
        android:layout_marginTop="10dp"

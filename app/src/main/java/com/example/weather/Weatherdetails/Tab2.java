@@ -23,11 +23,14 @@ import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.gson.Gson;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import okhttp3.Call;
@@ -41,6 +44,9 @@ public class Tab2 extends Fragment {
     private String APP_ID = "352e84b0ebdd052bca879172b8cf1bae";
     private RecyclerView recyclerView;
     private LineChart Chart;
+    private Object Entry;
+    private ArrayList ArrayList;
+    private Object lists;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -57,33 +63,36 @@ public class Tab2 extends Fragment {
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
 
         Chart = view.findViewById(R.id.chart);
-        Chart = new LineChart(getActivity());
+//        Chart = new LineChart(getActivity());
         Chart.getDescription().setEnabled(false);
-        Chart.setDrawGridBackground(false);
+      //  Chart.setDrawGridBackground(false);
 //        Chart.setDefaultFocusHighlightEnabled(true);
         Chart.setTouchEnabled(true);
         Chart.setDragEnabled(true);
         Chart.setScaleEnabled(true);
         Chart.setPinchZoom(true);
-        Chart.setBackgroundColor(Color.LTGRAY);
+       // Chart.setBackgroundColor(Color.LTGRAY);
 
-        LineData data = new LineData();
-        data.setValueTextColor(Color.WHITE);
-        Chart.setData(data);
+//        LineData data = new LineData();
+//        data.setValueTextColor(Color.WHITE);
+        Chart.setData(generateLineData());
 
         Legend l = Chart.getLegend();
         l.setForm(Legend.LegendForm.LINE);
         l.setTextColor(Color.WHITE);
 
         XAxis x1 = Chart.getXAxis();
+        x1.setPosition(XAxis.XAxisPosition.BOTTOM);
         x1.setTextColor(Color.WHITE);
-        x1.setDrawGridLines(false);
+     //   x1.setDrawGridLines(false);
+//        x1.setAxisMaxValue(400);
         x1.setAvoidFirstLastClipping(true);
 
         YAxis y1 = Chart.getAxisLeft();
         y1.setTextColor(Color.WHITE);
-        y1.setAxisMaxValue(120f);
-        y1.setDrawGridLines(true);
+        y1.getSpaceBottom();
+//        y1.setAxisMaxValue(24);
+       // y1.setDrawGridLines(true);
 
 
 YAxis y12 = Chart.getAxisRight();
@@ -91,7 +100,7 @@ y12.setEnabled(false);
 
 LineData data1 = Chart.getData();
 if (data1 != null){
-    LineDataSet  set = Chart.getData();
+   // LineDataSet  set = Chart.getData();
 }
 
 
@@ -99,6 +108,7 @@ if (data1 != null){
 
 //        LineChartView chart = new LineChartView(getActivity());
 //        chart.addView(chart);
+        generateLineData();
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10, new LocationListener() {
 
             @Override
@@ -130,9 +140,6 @@ if (data1 != null){
                                 Gson gson = new Gson();
                                 final Api myobj = gson.fromJson(result, Api.class);
                                 final lists mylist[] = myobj.list;
-
-                                //final ArrayList<lists> mylist = myobj.list;
-//                    final float my = myobj.ma.getTemp();
 
                                 if (getActivity() == null)
                                     return;
@@ -176,4 +183,51 @@ if (data1 != null){
 
         super.onViewCreated(view, savedInstanceState);
     }
+    private LineData generateLineData() {
+
+        LineData d = new LineData();
+
+        ArrayList<Entry> entries = new ArrayList<Entry>();
+
+        entries = getLineEntriesData(entries);
+
+        LineDataSet set = new LineDataSet(entries, "Line");
+
+        set.setColor(Color.rgb(240, 238, 70));
+        set.setColors(ColorTemplate.COLORFUL_COLORS);
+        set.setLineWidth(2.5f);
+        set.setCircleColor(Color.rgb(240, 238, 70));
+        set.setCircleRadius(5f);
+        set.setFillColor(Color.rgb(240, 238, 70));
+        set.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+        set.setDrawValues(true);
+        set.setValueTextSize(10f);
+        set.setValueTextColor(Color.rgb(240, 238, 70));
+
+        set.setAxisDependency(YAxis.AxisDependency.LEFT);
+        d.addDataSet(set);
+
+        return d;
+    }
+
+    private ArrayList<com.github.mikephil.charting.data.Entry> getLineEntriesData(ArrayList<Entry> entries){
+
+//        for (int i = 0; i < ArrayList.size(); i++) {
+//
+//            final lists mylist[];
+//            int temp = Integer.parseInt();
+//            int time = Integer.parseInt();
+//            entries.add(new Entry(temp , time));
+//        }
+        entries.add(new Entry(1, 20));
+        entries.add(new Entry(2, 10));
+        entries.add(new Entry(3, 8));
+        entries.add(new Entry(4, 20));
+        entries.add(new Entry(5, 19));
+
+        return entries;
+    }
+
+
+
 }

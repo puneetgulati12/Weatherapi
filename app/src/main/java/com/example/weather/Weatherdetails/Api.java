@@ -6,7 +6,7 @@ public class Api {
     public lists[] list ;
 
 }
-class lists{
+class lists {
     public String dt_txt;
     public lists(String dt_txt) {
         this.dt_txt = dt_txt;
