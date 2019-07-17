@@ -20,12 +20,14 @@ import android.view.ViewGroup;
 
 import com.example.weather.R;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.gson.Gson;
 
@@ -62,20 +64,17 @@ public class Tab2 extends Fragment {
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
 
+
         Chart = view.findViewById(R.id.chart);
-//        Chart = new LineChart(getActivity());
-        Chart.getDescription().setEnabled(false);
-      //  Chart.setDrawGridBackground(false);
-//        Chart.setDefaultFocusHighlightEnabled(true);
+
+       Chart.getDescription().setEnabled(false);
+
         Chart.setTouchEnabled(true);
         Chart.setDragEnabled(true);
         Chart.setScaleEnabled(true);
         Chart.setPinchZoom(true);
-       // Chart.setBackgroundColor(Color.LTGRAY);
 
-//        LineData data = new LineData();
-//        data.setValueTextColor(Color.WHITE);
-        Chart.setData(generateLineData());
+
 
         Legend l = Chart.getLegend();
         l.setForm(Legend.LegendForm.LINE);
@@ -84,31 +83,53 @@ public class Tab2 extends Fragment {
         XAxis x1 = Chart.getXAxis();
         x1.setPosition(XAxis.XAxisPosition.BOTTOM);
         x1.setTextColor(Color.WHITE);
-     //   x1.setDrawGridLines(false);
-//        x1.setAxisMaxValue(400);
+
         x1.setAvoidFirstLastClipping(true);
 
         YAxis y1 = Chart.getAxisLeft();
         y1.setTextColor(Color.WHITE);
         y1.getSpaceBottom();
-//        y1.setAxisMaxValue(24);
-       // y1.setDrawGridLines(true);
 
+        Chart.animateXY(3000 , 3000);
+
+        final lists[] lists = new lists[]{};
+        XAxis xAxis = Chart.getXAxis();
+        xAxis.setValueFormatter(new MyXAxisValueFormatter(lists) {
+            @Override
+            public String getFormattedValue(String value, AxisBase axis) {
+
+                return super.getFormattedValue(value, axis);
+            }
+
+            @Override
+            public String getFormattedValue(float value, AxisBase axis) {
+                do {
+                    return String.valueOf(lists(value));
+                }while (value !=24);
+
+                }
+
+
+
+            private float lists(float value) {
+                return value;
+            }
+        });
 
 YAxis y12 = Chart.getAxisRight();
 y12.setEnabled(false);
 
 LineData data1 = Chart.getData();
 if (data1 != null){
-   // LineDataSet  set = Chart.getData();
+    LineData set = Chart.getData();
 }
+
 
 
         final LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
 
-//        LineChartView chart = new LineChartView(getActivity());
-//        chart.addView(chart);
-        generateLineData();
+
+
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10, new LocationListener() {
 
             @Override
@@ -139,7 +160,14 @@ if (data1 != null){
                                 String result = myresponse;
                                 Gson gson = new Gson();
                                 final Api myobj = gson.fromJson(result, Api.class);
+                                float temp1 = myobj.list[0].main.temp;
+                                Log.e("temp" , String.valueOf(temp1));
+                                String time = myobj.list[0].getDt_txt();
+                                Log.e("" , time);
+                                getLineEntriesData(myobj);
+
                                 final lists mylist[] = myobj.list;
+
 
                                 if (getActivity() == null)
                                     return;
@@ -183,13 +211,14 @@ if (data1 != null){
 
         super.onViewCreated(view, savedInstanceState);
     }
-    private LineData generateLineData() {
+
+    private LineData generateLineData(ArrayList<com.github.mikephil.charting.data.Entry> entries) {
 
         LineData d = new LineData();
 
-        ArrayList<Entry> entries = new ArrayList<Entry>();
 
-        entries = getLineEntriesData(entries);
+
+
 
         LineDataSet set = new LineDataSet(entries, "Line");
 
@@ -206,26 +235,56 @@ if (data1 != null){
 
         set.setAxisDependency(YAxis.AxisDependency.LEFT);
         d.addDataSet(set);
-
+        Chart.setData(d);
         return d;
     }
 
-    private ArrayList<com.github.mikephil.charting.data.Entry> getLineEntriesData(ArrayList<Entry> entries){
+    private void getLineEntriesData(Api myObj){
 
-//        for (int i = 0; i < ArrayList.size(); i++) {
-//
+        ArrayList<com.github.mikephil.charting.data.Entry> entries = new ArrayList<>();
+
+        for (int i = 0; i < myObj.list.length; i++) {
+
 //            final lists mylist[];
-//            int temp = Integer.parseInt();
-//            int time = Integer.parseInt();
-//            entries.add(new Entry(temp , time));
-//        }
-        entries.add(new Entry(1, 20));
-        entries.add(new Entry(2, 10));
-        entries.add(new Entry(3, 8));
-        entries.add(new Entry(4, 20));
-        entries.add(new Entry(5, 19));
+            String s = String.valueOf(myObj.list[i].main.getTemp());
+            String a = s.substring(0, s.indexOf("."));
+            int temp = Integer.parseInt(a);
+            String b = myObj.list[i].getDt_txt();
+            String c =  b.substring(b.indexOf(' ')+1);
+            int time = Integer.parseInt(c.substring(0,c.indexOf(":")));
+            entries.add(new Entry(temp , time));
+        }
+//        entries.add(new Entry(12, 300));
+//        entries.add(new Entry(15, 310));
+//        entries.add(new Entry(18, 318));
+//        entries.add(new Entry(21, 320));
+//        entries.add(new Entry(24, 329));
+//        entries.add(new Entry(03, 299));
+//        entries.add(new Entry(06, 307));
+        generateLineData(entries);
 
-        return entries;
+        return ;
+    }
+    public abstract class MyXAxisValueFormatter implements IAxisValueFormatter, com.example.weather.Weatherdetails.MyXAxisValueFormatter {
+
+        private lists[] mValues;
+
+        public MyXAxisValueFormatter(lists[] values) {
+            this.mValues = values;
+        }
+
+        public String getFormattedValue(String value, AxisBase axis) {
+            // "value" represents the position of the label on the axis (x or y)
+
+            return String.valueOf(mValues[Integer.parseInt(value)]);
+        }
+
+        /** this is only needed if numbers are returned, else return 0 */
+
+        public int getDecimalDigits() {
+            return 1;
+        }
+
     }
 
 
