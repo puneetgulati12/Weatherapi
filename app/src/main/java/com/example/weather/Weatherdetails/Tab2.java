@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.weather.R;
 import com.github.mikephil.charting.charts.LineChart;
@@ -106,7 +107,6 @@ public class Tab2 extends Fragment {
                 do {
                     return String.valueOf(lists(value));
                 }while (value !=24);
-
                 }
 
 
@@ -122,6 +122,7 @@ y12.setEnabled(false);
 LineData data1 = Chart.getData();
 if (data1 != null){
     LineData set = Chart.getData();
+    set.setValueTextColor(Color.WHITE);
 }
 
 
@@ -169,8 +170,10 @@ if (data1 != null){
                                 final lists mylist[] = myobj.list;
 
 
-                                if (getActivity() == null)
+                                if (getActivity() == null) {
+                                    Toast.makeText(getActivity() , "wait for sometime"  , Toast.LENGTH_SHORT).show();
                                     return;
+                                }
 
                                 getActivity().runOnUiThread(new Runnable() {
                                     private Object ApiAdapter;
@@ -241,19 +244,43 @@ if (data1 != null){
 
     private void getLineEntriesData(Api myObj){
 
+
         ArrayList<com.github.mikephil.charting.data.Entry> entries = new ArrayList<>();
 
-        for (int i = 0; i < myObj.list.length; i++) {
+            int i=0;
+            boolean flag = false;
+        String k = myObj.list[i].getDt_txt();
+        String initial = k.substring(k.indexOf(' ') + 1);
+
+
+
+            while (!(myObj.list[i+1].getDt_txt().substring(myObj.list[i+1].getDt_txt().indexOf(' ')+1).equals(initial))){
+
+
+                String s = String.valueOf(myObj.list[i].main.getTemp());
+                String a = s.substring(0, s.indexOf("."));
+                int temp = Integer.parseInt(a);
+                String b = myObj.list[i].getDt_txt();
+                String c =  b.substring(b.indexOf(' ')+1);
+                int time = Integer.parseInt(c.substring(0,c.indexOf(":")));
+                if (time == 0 ){
+                    flag = true;
+                }
+                if (flag) {
+                    entries.add(new Entry(time+24, temp));
+                }
+                else
+                {
+                    entries.add(new Entry(time, temp));
+                }
+                i++;
+            }
+
+
 
 //            final lists mylist[];
-            String s = String.valueOf(myObj.list[i].main.getTemp());
-            String a = s.substring(0, s.indexOf("."));
-            int temp = Integer.parseInt(a);
-            String b = myObj.list[i].getDt_txt();
-            String c =  b.substring(b.indexOf(' ')+1);
-            int time = Integer.parseInt(c.substring(0,c.indexOf(":")));
-            entries.add(new Entry(temp , time));
-        }
+
+
 //        entries.add(new Entry(12, 300));
 //        entries.add(new Entry(15, 310));
 //        entries.add(new Entry(18, 318));

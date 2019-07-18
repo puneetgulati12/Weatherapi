@@ -10,6 +10,9 @@
 
 
         <TextView
+            android:fontFamily="monospace"
+            android:textColor="#FFFFFF"
+            android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
             android:textSize="20dp"
             android:text="12:00 PM"
@@ -22,7 +25,7 @@
         android:id="@+id/iconimages"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginLeft="100dp"
+        android:layout_marginLeft="120dp"
         android:layout_marginTop="10dp"
         android:layout_toRightOf="@id/time2"
         android:src="@drawable/iccloud" />
@@ -31,6 +34,8 @@
 
 
 <TextView
+    android:fontFamily="casual"
+    android:textColor="#FFFFFF"
     android:id="@+id/tempitem"
     android:textSize="20dp"
     android:text="93"

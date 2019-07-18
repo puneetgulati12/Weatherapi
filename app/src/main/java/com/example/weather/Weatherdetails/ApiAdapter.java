@@ -17,7 +17,7 @@ public class ApiAdapter extends RecyclerView.Adapter<ApiAdapter.ViewHolder> {
     private List<lists> roots;
     private Context context;
 
-    public ApiAdapter(List<lists> mylist , Context context) {
+    public ApiAdapter(List<lists> mylist, Context context) {
         roots = mylist;
         this.context = context;
 
@@ -28,17 +28,17 @@ public class ApiAdapter extends RecyclerView.Adapter<ApiAdapter.ViewHolder> {
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int position) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View inflateview = inflater.inflate(R.layout.item_row , parent , false);
-        return new ViewHolder(inflateview) ;
+        View inflateview = inflater.inflate(R.layout.item_row, parent, false);
+        return new ViewHolder(inflateview);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         lists current = roots.get(position);
         String s = current.getDt_txt();
-       String a =  s.substring(s.indexOf(' ')+1);
-        holder.time.setText(a.substring(0,a.indexOf(":")));
-        holder.temp.setText(String.valueOf(current.main.getTemp()));
+        String a = s.substring(s.indexOf(' ') + 1);
+        holder.time.setText(a.substring(0, a.indexOf(":")));
+        holder.temp.setText(String.valueOf(current.main.getTemp()) + "°F");
 
     }
 
@@ -48,11 +48,12 @@ public class ApiAdapter extends RecyclerView.Adapter<ApiAdapter.ViewHolder> {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView time , temp;
+        private TextView time, temp;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            time  = itemView.findViewById(R.id.time2);
-            temp  = itemView.findViewById(R.id.tempitem);
+            time = itemView.findViewById(R.id.time2);
+            temp = itemView.findViewById(R.id.tempitem);
 
         }
     }
