@@ -35,6 +35,7 @@ public class ApiAdapter extends RecyclerView.Adapter<ApiAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         lists current = roots.get(position);
+
         String s = current.getDt_txt();
         String a = s.substring(s.indexOf(' ') + 1);
         holder.time.setText(a.substring(0, a.indexOf(":")));

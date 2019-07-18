@@ -95,26 +95,26 @@ public class Tab2 extends Fragment {
 
         final lists[] lists = new lists[]{};
         XAxis xAxis = Chart.getXAxis();
-        xAxis.setValueFormatter(new MyXAxisValueFormatter(lists) {
-            @Override
-            public String getFormattedValue(String value, AxisBase axis) {
-
-                return super.getFormattedValue(value, axis);
-            }
-
-            @Override
-            public String getFormattedValue(float value, AxisBase axis) {
-                do {
-                    return String.valueOf(lists(value));
-                }while (value !=24);
-                }
-
-
-
-            private float lists(float value) {
-                return value;
-            }
-        });
+//        xAxis.setValueFormatter(new MyXAxisValueFormatter(lists) {
+//            @Override
+//            public String getFormattedValue(String value, AxisBase axis) {
+//
+//                return super.getFormattedValue(value, axis);
+//            }
+//
+//            @Override
+//            public String getFormattedValue(float value, AxisBase axis) {
+//                do {
+//                    return String.valueOf(lists(value));
+//                }while (value !=24);
+//                }
+//
+//
+//
+//            private float lists(float value) {
+//                return value;
+//            }
+//        });
 
 YAxis y12 = Chart.getAxisRight();
 y12.setEnabled(false);
@@ -231,14 +231,19 @@ if (data1 != null){
         set.setCircleColor(Color.rgb(240, 238, 70));
         set.setCircleRadius(5f);
         set.setFillColor(Color.rgb(240, 238, 70));
-        set.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+        set.setMode(LineDataSet.Mode.LINEAR);
         set.setDrawValues(true);
         set.setValueTextSize(10f);
         set.setValueTextColor(Color.rgb(240, 238, 70));
 
         set.setAxisDependency(YAxis.AxisDependency.LEFT);
         d.addDataSet(set);
+
         Chart.setData(d);
+
+        Chart.getAnimation();
+
+
         return d;
     }
 
