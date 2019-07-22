@@ -1,9 +1,7 @@
 package com.example.weather.Weatherdetails;
 
 import android.content.Context;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -20,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.TranslateAnimation;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -56,6 +55,7 @@ public class Tab2 extends Fragment {
     private Object lists;
     int firstcompletevisibleitem;
     RelativeLayout relLayout;
+    ArrayList<Integer> Visiblity;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -197,6 +197,9 @@ if (data1 != null){
                                         ApiAdapter myAdapter = new ApiAdapter(Arrays.asList(mylist) , getActivity());
                                         recyclerView.setAdapter(myAdapter);
                                         firstcompletevisibleitem=0;
+                                       Visiblity = new ArrayList<>();
+                                       Visiblity.add(0 , 1);
+
 
                                         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
 
@@ -218,17 +221,32 @@ if (data1 != null){
                                                     firstcompletevisibleitem = layoutManager.findFirstCompletelyVisibleItemPosition();
                                                     if (firstcompletevisibleitem>=0) {
                                                     ArrayList<Float>  pospoints = com.github.mikephil.charting.renderer.LineChartRenderer.DrawCircle(firstcompletevisibleitem);
-                                                        Canvas newcanvas = com.github.mikephil.charting.renderer.LineChartRenderer.getcanvas();
 
-                                                        Paint color = new Paint();
-                                                        color.setColor(Color.RED);
-                                                        View newview = new View(getActivity());
-                                                        RelativeLayout.LayoutParams lp =  new RelativeLayout.LayoutParams(20,20);
+                                                        //to remove
+
+
+
+                                                        ImageView newview = new ImageView(getActivity());
+
+                                                         RelativeLayout.LayoutParams lp =  new RelativeLayout.LayoutParams(40,40);
                                                         lp.leftMargin = Math.round(pospoints.get(0)-20);
                                                         lp.topMargin = Math.round(pospoints.get(1)-20);
                                                         newview.setLayoutParams(lp);
-                                                        newview.setBackgroundColor(Color.RED);
+                                                        newview.setImageResource(R.drawable.rounded);
+                                                        newview.setId(firstcompletevisibleitem);
                                                         relLayout.addView(newview);
+                                                        Visiblity.add(firstcompletevisibleitem, newview.getId());
+
+                                                        try {
+                                                            ImageView toremove = view.findViewById(Visiblity.get(firstcompletevisibleitem-1));
+
+                                                            toremove.setVisibility(View.GONE);
+                                                        } catch (Exception e) {
+                                                            e.printStackTrace();
+                                                        }
+
+
+
 
 
 
@@ -280,7 +298,7 @@ if (data1 != null){
         set.setColors(ColorTemplate.COLORFUL_COLORS);
         set.setLineWidth(2.5f);
         set.setCircleColor(Color.rgb(240, 238, 70));
-        set.setCircleRadius(5f);
+        set.setCircleRadius(0);
         set.setFillColor(Color.rgb(240, 238, 70));
         set.setMode(LineDataSet.Mode.LINEAR);
         set.setDrawValues(true);
