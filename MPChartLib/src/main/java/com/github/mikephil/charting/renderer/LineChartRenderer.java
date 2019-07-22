@@ -25,10 +25,15 @@ import com.github.mikephil.charting.utils.Utils;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class LineChartRenderer extends LineRadarRenderer {
+
+    private static Canvas canvasnew;
+
+    private static Paint mRenderPaint1;
 
     protected LineDataProvider mChart;
 
@@ -285,6 +290,8 @@ public class LineChartRenderer extends LineRadarRenderer {
 
     private float[] mLineBuffer = new float[4];
 
+    static ArrayList<Float> points = new ArrayList<>();
+
     /**
      * Draws a normal line.
      *
@@ -374,7 +381,15 @@ public class LineChartRenderer extends LineRadarRenderer {
 
                 canvas.drawLines(mLineBuffer, 0, pointsPerEntryPair * 2, mRenderPaint);
 
-                canvas.drawCircle(mLineBuffer[0],mLineBuffer[1],20,mRenderPaint);
+                points.add(mLineBuffer[0]);
+                points.add(mLineBuffer[1]);
+
+                canvasnew  = canvas;
+                mRenderPaint1= mRenderPaint;
+
+
+
+//                canvas.drawCircle(mLineBuffer[0],mLineBuffer[1],20,mRenderPaint);
 
             }
 
@@ -602,6 +617,7 @@ public class LineChartRenderer extends LineRadarRenderer {
     @Override
     public void drawExtras(Canvas c) {
         drawCircles(c);
+
     }
 
     /**
@@ -758,6 +774,26 @@ public class LineChartRenderer extends LineRadarRenderer {
         }
     }
 
+    public static ArrayList<Float> DrawCircle(int position){
+        Float xpos = points.get(position*2);
+        Float ypos = points.get(position*2+1);
+
+
+        ArrayList<Float>  pointss = new ArrayList<>();
+        pointss.add(xpos);
+        pointss.add(ypos);
+
+        return pointss;
+
+    }
+
+    public static Canvas getcanvas(){
+
+
+        return canvasnew;
+
+    }
+
     private class DataSetImageCache {
 
         private Path mCirclePathBuffer = new Path();
@@ -855,5 +891,7 @@ public class LineChartRenderer extends LineRadarRenderer {
         protected Bitmap getBitmap(int index) {
             return circleBitmaps[index % circleBitmaps.length];
         }
+
+
     }
 }

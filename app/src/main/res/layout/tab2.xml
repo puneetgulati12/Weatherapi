@@ -24,10 +24,11 @@
         android:layout_height="wrap_content" />
 
     <View
+
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_centerInParent="true"
-        android:background="#3B2196F3" />
+        android:layout_height="30dp"
+        android:background="#A90D85E4" />
 </RelativeLayout>
 
 </RelativeLayout>

@@ -1,8 +1,6 @@
 package com.example.weather.Details;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -140,23 +138,26 @@ public class Tab3 extends Fragment {
                 });
         super.onViewCreated(view, savedInstanceState);
     }
-    @SuppressLint("ResourceType")
-    private void setWeatherIcon(){
-        Drawable myDrawable = getResources().getDrawable(R.drawable.clearnight);
-        imageView.setImageDrawable(myDrawable);
-        String id = "";
-//        String icon = "";
-
-            switch(id) {
-                case "one" : getActivity().getDrawable(R.drawable.cloudrain);
-                    break;
-                case "two" : getActivity().getDrawable(R.drawable.cloudrain);
-                    break;
-                default:
-                    getActivity().getDrawable(R.id.weatherimage);
-
-            }
-        }
+//    @SuppressLint("ResourceType")
+//    private void setWeatherIcon(Root myobj){
+//        Drawable myDrawable = getResources().getDrawable(R.drawable.clearnight);
+//        imageView.setImageDrawable(myDrawable);
+//
+//        List<Data> mylist = myobj.daily.data;
+//
+//        String id = "";
+////        String icon = "";
+//
+//            switch(id) {
+//                case "one" : getActivity().getDrawable(R.drawable.cloudrain);
+//                    break;
+//                case "two" : getActivity().getDrawable(R.drawable.cloudrain);
+//                    break;
+//                default:
+//                    getActivity().getDrawable(R.id.weatherimage);
+//
+//            }
+//        }
 
 
     }

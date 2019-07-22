@@ -268,61 +268,7 @@ public class Tab1 extends Fragment implements GoogleApiClient.OnConnectionFailed
         }
 
 
-//        double lat = loc.getLatitude(), lon = loc.getLongitude();
-//        String units = "imperial";
-//
-//        final String baseurl = String.format("http://api.openweathermap.org/data/2.5/weather?lat=%f&lon=%f&units=%s&appid=%s",
-//                lat, lon, units, APP_ID);
-//        Log.e("api", baseurl);
-//
-//        OkHttpClient client = new OkHttpClient();
-//
-//        final Request request = new Request.Builder()
-//                .url(baseurl).build();
-//
-//        client.newCall(request).enqueue(new Callback() {
-//            @Override
-//            public void onFailure(Call call, IOException e) {
-//                call.cancel();
-//            }
-//
-//            @Override
-//            public void onResponse(Call call, Response response) throws IOException {
-//                final String myresponse = response.body().string();
-//                Log.e("response", myresponse);
-//
-//                String result = myresponse;
-//
-//                Gson gson = new Gson();
-//
-//
-//                weatherApi myobj = gson.fromJson(result, weatherApi.class);
-//                int abcd = myobj.main.getTemp();
-//
-//                TextView textView = getView().findViewById(R.id.temp);
-//
-//                textView.setText(String.valueOf(abcd));
-//                int abcde = myobj.main.getTemp();
-//
-//
-//
-//                TextView textVie = view.findViewById(R.id.humiditytemp);
-//
-//                textVie.setText(String.valueOf(abcde));
-//
-//                int abc = myobj.wind.getSpeed();
-//
-//                TextView textVi = getView().findViewById(R.id.wind);
-//
-//                textVi.setText(String.valueOf(abc));
-//
-//                String a = myobj.sys.getCountry();
-//                TextView text = getView().findViewById(R.id.city);
-//                text.setText(a);
-//
-//
-//            }
-//        });
+
 
     }
 

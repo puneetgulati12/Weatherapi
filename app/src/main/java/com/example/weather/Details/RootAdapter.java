@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.weather.R;
@@ -23,6 +24,7 @@ public class RootAdapter extends RecyclerView.Adapter<RootAdapter.ViewHolder> {
     }
 
     public RootAdapter(List<Data> mylist) {
+        roots = mylist;
 
     }
 
@@ -41,10 +43,8 @@ public class RootAdapter extends RecyclerView.Adapter<RootAdapter.ViewHolder> {
         holder.tempmax.setText(String.valueOf(current.temperatureMax));
         holder.tempmin.setText(String.valueOf(current.temperatureMin));
         holder.con.setText(current.icon);
-
-//        holder.tempmax.setText(String.valueOf(current.);
-//        holder.tempmin.setText(String.valueOf(current.main.getTemp_min()));
-//        holder.name.setText(current.name.getName());
+//        String weatherDescription =
+//        Picasso.get().load(IconChanger.getImageIcon(weatherDescription)).into(imageweather);
 
 
     }
@@ -56,12 +56,15 @@ public class RootAdapter extends RecyclerView.Adapter<RootAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-private TextView tempmax , tempmin , con;
+public TextView tempmax , tempmin , con ;
+        public ImageView imageweather;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            imageweather = itemView.findViewById(R.id.weatherimage);
             con = itemView.findViewById(R.id.desc);
             tempmax = itemView.findViewById(R.id.tempmax);
             tempmin = itemView.findViewById(R.id.tempmin);
         }
     }
+
 }

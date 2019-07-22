@@ -1,7 +1,9 @@
 package com.example.weather.Weatherdetails;
 
 import android.content.Context;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -17,6 +19,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.TranslateAnimation;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.weather.R;
@@ -50,6 +54,8 @@ public class Tab2 extends Fragment {
     private Object Entry;
     private ArrayList ArrayList;
     private Object lists;
+    int firstcompletevisibleitem;
+    RelativeLayout relLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -67,6 +73,8 @@ public class Tab2 extends Fragment {
 
 
         Chart = view.findViewById(R.id.chart);
+        relLayout = view.findViewById(R.id.root);
+
 
        Chart.getDescription().setEnabled(false);
 
@@ -188,6 +196,49 @@ if (data1 != null){
 
                                         ApiAdapter myAdapter = new ApiAdapter(Arrays.asList(mylist) , getActivity());
                                         recyclerView.setAdapter(myAdapter);
+                                        firstcompletevisibleitem=0;
+
+                                        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+
+                                            @Override
+                                            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                                                super.onScrollStateChanged(recyclerView, newState);
+                                            }
+
+                                            @Override
+                                            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+
+
+// Add this to your Recycler view
+
+
+// To check if at the top of recycler view
+                                                if(layoutManager.findFirstCompletelyVisibleItemPosition()!=firstcompletevisibleitem ){
+                                                    // Its at top
+                                                    firstcompletevisibleitem = layoutManager.findFirstCompletelyVisibleItemPosition();
+                                                    if (firstcompletevisibleitem>=0) {
+                                                    ArrayList<Float>  pospoints = com.github.mikephil.charting.renderer.LineChartRenderer.DrawCircle(firstcompletevisibleitem);
+                                                        Canvas newcanvas = com.github.mikephil.charting.renderer.LineChartRenderer.getcanvas();
+
+                                                        Paint color = new Paint();
+                                                        color.setColor(Color.RED);
+                                                        View newview = new View(getActivity());
+                                                        RelativeLayout.LayoutParams lp =  new RelativeLayout.LayoutParams(20,20);
+                                                        lp.leftMargin = Math.round(pospoints.get(0)-20);
+                                                        lp.topMargin = Math.round(pospoints.get(1)-20);
+                                                        newview.setLayoutParams(lp);
+                                                        newview.setBackgroundColor(Color.RED);
+                                                        relLayout.addView(newview);
+
+
+
+                                                    }
+
+                                                }
+
+
+                                            }
+                                        });
                                     }
                                 });
                             }
@@ -318,6 +369,14 @@ if (data1 != null){
         }
 
     }
+    TranslateAnimation animation = new TranslateAnimation(220, 80, 300, 80); //(float From X,To X, From Y, To Y)
+    int   currentRotation = 0;
+//    animation = new RotateAnimation(currentRotation, (360*4), Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,0.5f);
+//    currentRotation = (currentRotation + 45) % 360;
+//        animation.setDuration(1000);
+//        animation.setFillAfter(false);
+//        animation.setAnimationListener(new MyAnimationListener());
+
 
 
 
