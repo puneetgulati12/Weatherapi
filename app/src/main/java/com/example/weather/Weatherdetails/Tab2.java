@@ -17,7 +17,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -56,6 +55,7 @@ public class Tab2 extends Fragment {
     int firstcompletevisibleitem;
     RelativeLayout relLayout;
     ArrayList<Integer> Visiblity;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -216,21 +216,20 @@ if (data1 != null){
 
 
 // To check if at the top of recycler view
-                                                if(layoutManager.findFirstCompletelyVisibleItemPosition()!=firstcompletevisibleitem ){
+                                                if (layoutManager.findFirstCompletelyVisibleItemPosition() != firstcompletevisibleitem) {
                                                     // Its at top
                                                     firstcompletevisibleitem = layoutManager.findFirstCompletelyVisibleItemPosition();
-                                                    if (firstcompletevisibleitem>=0) {
-                                                    ArrayList<Float>  pospoints = com.github.mikephil.charting.renderer.LineChartRenderer.DrawCircle(firstcompletevisibleitem);
+                                                    if (firstcompletevisibleitem >= 0) {
+                                                        ArrayList<Float> pospoints = com.github.mikephil.charting.renderer.LineChartRenderer.DrawCircle(firstcompletevisibleitem);
 
                                                         //to remove
 
 
-
                                                         ImageView newview = new ImageView(getActivity());
 
-                                                         RelativeLayout.LayoutParams lp =  new RelativeLayout.LayoutParams(40,40);
-                                                        lp.leftMargin = Math.round(pospoints.get(0)-20);
-                                                        lp.topMargin = Math.round(pospoints.get(1)-20);
+                                                        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(40, 40);
+                                                        lp.leftMargin = Math.round(pospoints.get(0) - 20);
+                                                        lp.topMargin = Math.round(pospoints.get(1) - 20);
                                                         newview.setLayoutParams(lp);
                                                         newview.setImageResource(R.drawable.rounded);
                                                         newview.setId(firstcompletevisibleitem);
@@ -238,7 +237,7 @@ if (data1 != null){
                                                         Visiblity.add(firstcompletevisibleitem, newview.getId());
 
                                                         try {
-                                                            ImageView toremove = view.findViewById(Visiblity.get(firstcompletevisibleitem-1));
+                                                            ImageView toremove = view.findViewById(Visiblity.get(firstcompletevisibleitem - 1));
 
                                                             toremove.setVisibility(View.GONE);
                                                         } catch (Exception e) {
@@ -246,13 +245,10 @@ if (data1 != null){
                                                         }
 
 
-
-
-
-
                                                     }
 
                                                 }
+
 
 
                                             }
@@ -387,15 +383,13 @@ if (data1 != null){
         }
 
     }
-    TranslateAnimation animation = new TranslateAnimation(220, 80, 300, 80); //(float From X,To X, From Y, To Y)
-    int   currentRotation = 0;
+//    TranslateAnimation animation = new TranslateAnimation(220, 80, 300, 80); //(float From X,To X, From Y, To Y)
+//    int   currentRotation = 0;
 //    animation = new RotateAnimation(currentRotation, (360*4), Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,0.5f);
 //    currentRotation = (currentRotation + 45) % 360;
 //        animation.setDuration(1000);
 //        animation.setFillAfter(false);
 //        animation.setAnimationListener(new MyAnimationListener());
-
-
 
 
 }

@@ -1,12 +1,16 @@
 package com.example.weather.WeatherAdapter;
 
 import android.Manifest;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -31,6 +35,8 @@ import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+
+import static android.content.Context.ALARM_SERVICE;
 
 public class Tab1 extends Fragment implements GoogleApiClient.OnConnectionFailedListener, LocationListener, GoogleApiClient.ConnectionCallbacks {
 
@@ -57,6 +63,7 @@ public class Tab1 extends Fragment implements GoogleApiClient.OnConnectionFailed
 
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
+        Amanager();
 
 //        googleApiClient = new GoogleApiClient.Builder(getActivity())
 //                .addConnectionCallbacks(this)
@@ -271,6 +278,19 @@ public class Tab1 extends Fragment implements GoogleApiClient.OnConnectionFailed
 
 
     }
+    public void Amanager(){
+        AlarmManager manager = (AlarmManager)getActivity().getSystemService(ALARM_SERVICE);
+        Intent intent = new Intent(getActivity() , MyBroadcastReceiver.class);
+//        startActivity(intent);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity() , 1 , intent , 0);
 
+        manager.setInexactRepeating(AlarmManager.RTC, SystemClock.elapsedRealtime() , 90*1000   , pendingIntent);
+//        if (manager!= null) {
+//            manager.cancel(pendingIntent);
+//        }
+
+
+
+    }
 
 }

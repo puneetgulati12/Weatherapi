@@ -31,7 +31,7 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
         weatherApi current =  weatherApis.get(position);
 
 
-        holder.temp.setText(String.valueOf(current.main.getTemp()));
+        holder.temp.setText(String.valueOf(current.main.getTemp())+"°C");
         holder.city.setText(current.getname());
         holder.humiditytemp.setText(String.valueOf(current.main.getHumidity()));
         holder.wind.setText(String.valueOf(current.wind.getSpeed()));
