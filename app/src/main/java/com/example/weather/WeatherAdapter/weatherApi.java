@@ -18,9 +18,20 @@ public class weatherApi {
         return name;
     }
 
-
+    public weather[] weather;
 }
 
+class weather{
+    public String main;
+
+    public weather(String main) {
+        this.main = main;
+    }
+
+    public String getMain() {
+        return main;
+    }
+}
 
    class Cord {
         public float lon, lat;

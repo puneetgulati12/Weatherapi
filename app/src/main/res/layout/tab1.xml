@@ -75,8 +75,12 @@ android:layout_marginLeft="150dp"
             android:text="1.12"
             android:textSize="30dp" />
 
-    </LinearLayout>
 
+    </LinearLayout>
+<TextView
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:id="@+id/descweather"/>
 
 
 

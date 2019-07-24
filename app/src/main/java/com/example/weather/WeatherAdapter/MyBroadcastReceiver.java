@@ -30,6 +30,8 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class MyBroadcastReceiver extends BroadcastReceiver {
+
+
     MediaPlayer mp;
     private static final  String Channel1 = "channel1";
     private static final String APP_ID = "352e84b0ebdd052bca879172b8cf1bae";
@@ -90,13 +92,13 @@ public void onReceive(final Context context , Intent intent){
                                 if(context == null)
                                     return;
 
-//                                new Thread(new Runnable() {
-//                                    public void run() {
-                                        float abcd = myobj.main.getTemp();
+
+
+                                float abcd = myobj.main.getTemp();
                                 final NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
                                 final RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.custom_notification);
 
-  remoteViews.setTextViewText(R.id.notitemp, String.valueOf(abcd)+"°C");
+                                remoteViews.setTextViewText(R.id.notitemp, abcd +"°C");
                                 remoteViews.setImageViewResource(R.id.imagenoty , R.drawable.index);
                                 Intent notificationIntent = new Intent(context, MainActivity.class);
 
@@ -104,15 +106,13 @@ public void onReceive(final Context context , Intent intent){
 
                                 final Notification notification = new NotificationCompat.Builder(context  , Channel1)
                                         .setSmallIcon(R.drawable.ic_action_name)
-                                        .setAutoCancel(false)
-//                .setContentTitle("weather" )
+                                        .setAutoCancel(true)
+//                                       .setContentTitle("weather" )
                                         .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
 
                                         .setPriority(NotificationCompat.PRIORITY_HIGH)
                                         .setCustomContentView(remoteViews)
                                         .setCustomBigContentView(remoteViews)
-
-
 
                                         .setCategory(NotificationCompat.CATEGORY_SERVICE)
                                         .setContentIntent(PendingIntent.getActivity(context, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT))

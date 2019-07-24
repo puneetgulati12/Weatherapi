@@ -16,6 +16,7 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
     private ArrayList<weatherApi> weatherApis;
 
 
+
     private Context context;
     @NonNull
     @Override
@@ -35,6 +36,16 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
         holder.city.setText(current.getname());
         holder.humiditytemp.setText(String.valueOf(current.main.getHumidity()));
         holder.wind.setText(String.valueOf(current.wind.getSpeed()));
+//        if (current.weather[0].getMain().matches("Drizzle")){
+//            holder.gifImageView.setImageResource(R.drawable.drizzle);
+//        }
+//        else if (current.weather[0].getMain().matches("Rain")){
+//            holder.gifImageView.setImageResource(R.drawable.sunrain);
+//        }else if (current.weather[0].getMain().matches("clear-day")){
+//            holder.gifImageView.setImageResource(R.drawable.dayclear);
+//        }else if (current.weather[0].getMain().matches("Clouds")){
+//            holder.gifImageView.setImageResource(R.drawable.cloudyg);
+//        }
 
     }
 
@@ -47,6 +58,7 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView temp , humiditytemp , wind , city ;
+//        private GifImageView gifImageView;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -54,6 +66,8 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
             temp = itemView.findViewById(R.id.temp);
             humiditytemp = itemView.findViewById(R.id.humiditytemp);
             wind = itemView.findViewById(R.id.wind);
+
+//            gifImageView = itemView.findViewById(R.id.icon);
         }
     }
 }

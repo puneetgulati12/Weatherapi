@@ -42,6 +42,17 @@ public class RootAdapter extends RecyclerView.Adapter<RootAdapter.ViewHolder> {
 
         holder.tempmax.setText(String.valueOf(current.temperatureMax));
         holder.tempmin.setText(String.valueOf(current.temperatureMin));
+
+        if (current.icon.matches("partly-cloudy-day")){
+            holder.imageweather.setImageResource(R.drawable.suncloud);
+        }
+        else if (current.icon.matches("rain")){
+            holder.imageweather.setImageResource(R.drawable.cloudrain);
+        }else if (current.icon.matches("clear-day")){
+            holder.imageweather.setImageResource(R.drawable.dayclear);
+        }else if (current.icon.matches("cloudy-day")){
+            holder.imageweather.setImageResource(R.drawable.cloudy);
+        }
         holder.con.setText(current.icon);
 //        String weatherDescription =
 //        Picasso.get().load(IconChanger.getImageIcon(weatherDescription)).into(imageweather);

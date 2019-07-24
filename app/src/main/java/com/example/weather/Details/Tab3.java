@@ -146,7 +146,7 @@ public class Tab3 extends Fragment {
 //        List<Data> mylist = myobj.daily.data;
 //
 //        String id = "";
-////        String icon = "";
+//        String icon = "";
 //
 //            switch(id) {
 //                case "one" : getActivity().getDrawable(R.drawable.cloudrain);

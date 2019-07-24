@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
     private prefManager prefManager;
 
 
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +74,8 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
             launchHomeScreen();
             finish();
         }
+
+
         // Making notification bar transparent
         if (Build.VERSION.SDK_INT >= 21) {
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
@@ -151,6 +154,8 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
             }
         }, 10);
     }
+
+
 
 
     private void addBottomDots(int currentPage) {

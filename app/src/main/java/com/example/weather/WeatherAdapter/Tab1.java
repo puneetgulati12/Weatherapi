@@ -22,6 +22,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.weather.R;
+import com.example.weather.SharedPref;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationRequest;
@@ -35,6 +36,7 @@ import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import pl.droidsonroids.gif.GifImageView;
 
 import static android.content.Context.ALARM_SERVICE;
 
@@ -45,6 +47,8 @@ public class Tab1 extends Fragment implements GoogleApiClient.OnConnectionFailed
     private GoogleApiClient googleApiClient;
     LocationRequest locationRequest;
     Location currentloc;
+    private SharedPref sharedPref;
+    private GifImageView imageView;
 
 
     @Override
@@ -63,7 +67,15 @@ public class Tab1 extends Fragment implements GoogleApiClient.OnConnectionFailed
 
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
-        Amanager();
+
+        sharedPref = new SharedPref(getActivity());
+        if (!sharedPref.isFirstTime()) {
+
+
+            sharedPref.SetFirstTime(false);
+            Amanager();
+        }
+
 
 //        googleApiClient = new GoogleApiClient.Builder(getActivity())
 //                .addConnectionCallbacks(this)
@@ -110,6 +122,8 @@ public class Tab1 extends Fragment implements GoogleApiClient.OnConnectionFailed
 
 
                                 final weatherApi myobj = gson.fromJson(result, weatherApi.class);
+
+//
                                 if(getActivity() == null)
                                     return;
 
@@ -131,6 +145,20 @@ public class Tab1 extends Fragment implements GoogleApiClient.OnConnectionFailed
                                         TextView textVi = view.findViewById(R.id.wind);
 
                                         textVi.setText(String.valueOf(abc));
+
+                                        String desc = myobj.weather[0].getMain();
+
+                                        imageView = view.findViewById(R.id.icon);
+                                        if (desc.matches("Rain")){
+                                            imageView.setImageResource(R.drawable.cloudrain);
+                                        }else if (desc.matches("Clear")){
+                                            imageView.setImageResource(R.drawable.icsun);
+                                        }else if (desc.matches("Clouds")){
+                                            imageView.setImageResource(R.drawable.icsuncloud);
+                                        }
+                                        else if (desc.matches("Haze")){
+                                            imageView.setImageResource(R.drawable.haze);
+                                        }
 
 
                                         if (myobj.getname().isEmpty()) {
@@ -282,15 +310,19 @@ public class Tab1 extends Fragment implements GoogleApiClient.OnConnectionFailed
         AlarmManager manager = (AlarmManager)getActivity().getSystemService(ALARM_SERVICE);
         Intent intent = new Intent(getActivity() , MyBroadcastReceiver.class);
 //        startActivity(intent);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity() , 1 , intent , 0);
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity() , 1 , intent , PendingIntent.FLAG_UPDATE_CURRENT);
 
         manager.setInexactRepeating(AlarmManager.RTC, SystemClock.elapsedRealtime() , 90*1000   , pendingIntent);
-//        if (manager!= null) {
-//            manager.cancel(pendingIntent);
-//        }
+
 
 
 
     }
+
+
+
+
+
 
 }

@@ -55,6 +55,7 @@ public class Tab2 extends Fragment {
     int firstcompletevisibleitem;
     RelativeLayout relLayout;
     ArrayList<Integer> Visiblity;
+    int i;
 
 
     @Override
@@ -169,6 +170,7 @@ if (data1 != null){
                                 String result = myresponse;
                                 Gson gson = new Gson();
                                 final Api myobj = gson.fromJson(result, Api.class);
+                                String desc = myobj.list[0].weather[0].getMain();
                                 float temp1 = myobj.list[0].main.temp;
                                 Log.e("temp" , String.valueOf(temp1));
                                 String time = myobj.list[0].getDt_txt();
@@ -317,7 +319,7 @@ if (data1 != null){
 
         ArrayList<com.github.mikephil.charting.data.Entry> entries = new ArrayList<>();
 
-            int i=0;
+            i=0;
             boolean flag = false;
         String k = myObj.list[i].getDt_txt();
         String initial = k.substring(k.indexOf(' ') + 1);

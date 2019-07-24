@@ -19,8 +19,10 @@ class lists {
     }
 
     public Datalist main;
+    public weather[] weather;
+
 }
-class Datalist{
+class Datalist {
     public float temp;
 
     public Datalist(float temp) {
@@ -30,4 +32,21 @@ class Datalist{
     public float getTemp() {
         return temp;
     }
+
+
 }
+
+
+    class weather{
+        public String main;
+
+        public weather(String main) {
+            this.main = main;
+        }
+
+        public String getMain() {
+            return main;
+        }
+    }
+
+
