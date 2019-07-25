@@ -19,9 +19,7 @@ public class ApiAdapter extends RecyclerView.Adapter<ApiAdapter.ViewHolder> {
     private Context context;
 
     public ApiAdapter(List<lists> mylist, Context context) {
-//        int i=0;
-//
-//        while (roots.get(i).getDt_txt().substring(s.indexOf(' ') + 1))
+
         roots = mylist;
         this.context = context;
 

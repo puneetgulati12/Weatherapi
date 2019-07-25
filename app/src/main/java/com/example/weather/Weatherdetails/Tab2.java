@@ -39,6 +39,7 @@ import com.google.gson.Gson;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -201,9 +202,29 @@ if (data1 != null){
                                         RecyclerView recyclerView = view.findViewById(R.id.recyler);
                                         final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
                                         recyclerView.setLayoutManager(layoutManager);
-                                        ApiAdapter = new ApiAdapter(Arrays.asList(mylist) , getActivity());
+                                        String initialtime="0";
+                                        int count =0;
 
-                                        ApiAdapter myAdapter = new ApiAdapter(Arrays.asList(mylist) , getActivity());
+
+                                        for (int k=0;k<mylist.length;k++) {
+
+                                            lists current = mylist[k];
+                                            String s = current.getDt_txt();
+                                            String a = s.substring(s.indexOf(' ') + 1);
+
+                                            if (k == 0) {
+                                                initialtime = a;
+                                            }
+
+                                            if (a.equals(initialtime) && k != 0) {
+                                               count=k+1;
+                                               break;
+                                            }
+                                        }
+                                       List<lists> newList= Arrays.asList(mylist);
+                                        newList = newList.subList(0,count);
+
+                                        ApiAdapter myAdapter = new ApiAdapter(newList , getActivity());
                                         recyclerView.setAdapter(myAdapter);
                                         firstcompletevisibleitem=0;
                                         Visiblity = new int[20] ;
@@ -221,44 +242,48 @@ if (data1 != null){
 
 
 // Add this to your Recycler view
-
-
+                                                if (dy > 0) {
 // To check if at the top of recycler view
-                                                if ((layoutManager.findFirstCompletelyVisibleItemPosition() != firstcompletevisibleitem)  && i>firstcompletevisibleitem)  {
-                                                    // Its at top
-                                                    firstcompletevisibleitem = layoutManager.findFirstCompletelyVisibleItemPosition();
-                                                    if (firstcompletevisibleitem >= 0) {
-                                                        ArrayList<Float> pospoints = com.github.mikephil.charting.renderer.LineChartRenderer.DrawCircle(firstcompletevisibleitem);
+                                                    if ((layoutManager.findFirstCompletelyVisibleItemPosition() != firstcompletevisibleitem) && i > firstcompletevisibleitem) {
+                                                        // Its at top
 
-                                                        //to remove
+                                                        firstcompletevisibleitem = layoutManager.findFirstCompletelyVisibleItemPosition();
+                                                        if (firstcompletevisibleitem >= 0) {
+                                                            try {
+                                                                ArrayList<Float> pospoints = com.github.mikephil.charting.renderer.LineChartRenderer.DrawCircle(firstcompletevisibleitem);
+
+                                                                //to remove
 
 
-                                                        ImageView newview = new ImageView(getActivity());
+                                                                ImageView newview = new ImageView(getActivity());
 
-                                                        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(40, 40);
-                                                        lp.leftMargin = Math.round(pospoints.get(0) - 20);
-                                                        lp.topMargin = Math.round(pospoints.get(1) - 20);
-                                                        newview.setLayoutParams(lp);
-                                                        newview.setImageResource(R.drawable.rounded);
-                                                        newview.setId(firstcompletevisibleitem);
-                                                        relLayout.addView(newview);
-                                                        Visiblity[firstcompletevisibleitem]= newview.getId();
+                                                                RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(40, 40);
+                                                                lp.leftMargin = Math.round(pospoints.get(0) - 20);
+                                                                lp.topMargin = Math.round(pospoints.get(1) - 20);
+                                                                newview.setLayoutParams(lp);
+                                                                newview.setImageResource(R.drawable.rounded);
+                                                                newview.setId(firstcompletevisibleitem);
+                                                                relLayout.addView(newview);
+                                                                Visiblity[firstcompletevisibleitem] = newview.getId();
 
-                                                        try {
-                                                            ImageView toremove = view.findViewById((Visiblity[firstcompletevisibleitem - 1]));
 
-                                                            toremove.setVisibility(View.GONE);
-                                                        } catch (Exception e) {
-                                                            e.printStackTrace();
+                                                                ImageView toremove = view.findViewById((Visiblity[firstcompletevisibleitem - 1]));
+
+                                                                toremove.setVisibility(View.GONE);
+                                                            } catch (Exception e) {
+                                                                e.printStackTrace();
+                                                            }
+
+
                                                         }
-
 
                                                     }
 
+
+                                                } else {
+                                                    Log.d("scrolling down","true");
+
                                                 }
-
-
-
                                             }
                                         });
                                     }
