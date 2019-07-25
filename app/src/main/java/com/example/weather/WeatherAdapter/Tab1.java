@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -19,10 +20,18 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.weather.Colors;
 import com.example.weather.R;
 import com.example.weather.SharedPref;
+
+import com.github.ybq.android.spinkit.SpinKitView;
+import com.github.ybq.android.spinkit.SpriteFactory;
+import com.github.ybq.android.spinkit.Style;
+import com.github.ybq.android.spinkit.sprite.Sprite;
+import com.github.ybq.android.spinkit.style.DoubleBounce;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationRequest;
@@ -40,7 +49,7 @@ import pl.droidsonroids.gif.GifImageView;
 
 import static android.content.Context.ALARM_SERVICE;
 
-public class Tab1 extends Fragment implements GoogleApiClient.OnConnectionFailedListener, LocationListener, GoogleApiClient.ConnectionCallbacks {
+public class Tab1 extends Fragment implements GoogleApiClient.OnConnectionFailedListener, LocationListener, GoogleApiClient.ConnectionCallbacks , Colors {
 
     public Context context;
     private static final String APP_ID = "352e84b0ebdd052bca879172b8cf1bae";
@@ -49,6 +58,8 @@ public class Tab1 extends Fragment implements GoogleApiClient.OnConnectionFailed
     Location currentloc;
     private SharedPref sharedPref;
     private GifImageView imageView;
+//    private SpinKitView spinKitView;
+
 
 
     @Override
@@ -76,6 +87,25 @@ public class Tab1 extends Fragment implements GoogleApiClient.OnConnectionFailed
             Amanager();
         }
 
+//        spinKitView = (SpinKitView) view.findViewById(R.id.spin_kit);
+        final ProgressBar progressBar = (ProgressBar)view.findViewById(R.id.spin_kit);
+
+//        Sprite doubleBounce = new DoubleBounce();
+//        progressBar.setIndeterminateDrawable(doubleBounce);
+
+//        view.setBackgroundColor(colors[1 % colors.length]);
+//        final int finalPosition = 1;
+//        position = position % 15;
+//        Style style = Style.values()[position];
+//        Sprite drawable = SpriteFactory.create(style);
+//        spinKitView.setIndeterminateDrawable(drawable);
+//
+//
+//        animatedCircleLoadingView = (AnimatedCircleLoadingView) view.findViewById(R.id.circle_loading_view);
+//
+//
+//       startLoading();
+//        startPercentMockThread();
 
 //        googleApiClient = new GoogleApiClient.Builder(getActivity())
 //                .addConnectionCallbacks(this)
@@ -93,6 +123,8 @@ public class Tab1 extends Fragment implements GoogleApiClient.OnConnectionFailed
                     public void onLocationChanged(Location location) {
                         double lat = location.getLatitude();
                         double lon = location.getLongitude();
+
+
 
                         String units = "imperial";
 
@@ -113,6 +145,7 @@ public class Tab1 extends Fragment implements GoogleApiClient.OnConnectionFailed
 
                             @Override
                             public void onResponse(Call call, Response response) throws IOException {
+
                                 final String myresponse = response.body().string();
                                 Log.e("response", myresponse);
 
@@ -129,6 +162,9 @@ public class Tab1 extends Fragment implements GoogleApiClient.OnConnectionFailed
 
                                 getActivity().runOnUiThread(new Thread(new Runnable() {
                                     public void run() {
+
+                                        progressBar.setVisibility(View.GONE);
+
                                         float abcd = myobj.main.getTemp();
 
                                         TextView textView = view.findViewById(R.id.temp);
@@ -172,12 +208,15 @@ public class Tab1 extends Fragment implements GoogleApiClient.OnConnectionFailed
                                                 e.printStackTrace();
                                             }
                                         }
+//                                        animatedCircleLoadingView.setVisibility(View.GONE);
 
                                     }
+
 
                                 }));
 
                             }
+
                         });
                     }
 
@@ -320,8 +359,46 @@ public class Tab1 extends Fragment implements GoogleApiClient.OnConnectionFailed
 
     }
 
-
-
+//
+//    private void startLoading() {
+//        animatedCircleLoadingView.startDeterminate();
+//    }
+//
+//    private void startPercentMockThread() {
+//        Runnable runnable = new Runnable() {
+//            @Override
+//            public void run() {
+//                try {
+//                    Thread.sleep(1500);
+//                    for (int i = 0; i <= 100; i++) {
+//                        Thread.sleep(65);
+//                        changePercent(i);
+//                    }
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        };
+//        new Thread(runnable).start();
+//    }
+//
+//    private void changePercent(final int percent) {
+//        getActivity().runOnUiThread(new Runnable() {
+//            @Override
+//            public void run() {
+//                animatedCircleLoadingView.setPercent(percent);
+//            }
+//        });
+//    }
+//
+//    public void resetLoading() {
+//        getActivity().runOnUiThread(new Runnable() {
+//            @Override
+//            public void run() {
+//                animatedCircleLoadingView.resetLoading();
+//            }
+//        });
+//    }
 
 
 

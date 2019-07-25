@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.weather.R;
@@ -34,6 +35,7 @@ public class Tab3 extends Fragment {
     private RecyclerView recyclerView;
     private ImageView imageView;
    private TextView simple;
+   ProgressBar progressBar;
 
 
     @Override
@@ -50,7 +52,7 @@ public class Tab3 extends Fragment {
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
 
-
+        progressBar = view.findViewById(R.id.spikit);
 
         imageView = view.findViewById(R.id.weatherimage);
         final LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
@@ -94,7 +96,7 @@ public class Tab3 extends Fragment {
 
                                     @Override
                                     public void run() {
-
+                                        progressBar.setVisibility(View.GONE);
 
                                         RecyclerView recyclerView =  view.findViewById(R.id.recylervv);
                                         final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity() ,  LinearLayoutManager.VERTICAL,false);

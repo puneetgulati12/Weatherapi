@@ -2,6 +2,7 @@ package com.example.weather.Weatherdetails;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.AnimationDrawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -18,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -54,8 +56,10 @@ public class Tab2 extends Fragment {
     private Object lists;
     int firstcompletevisibleitem;
     RelativeLayout relLayout;
-    ArrayList<Integer> Visiblity;
+    int[] Visiblity;
     int i;
+    AnimationDrawable animationDrawable;
+    ProgressBar progressBar;
 
 
     @Override
@@ -71,6 +75,7 @@ public class Tab2 extends Fragment {
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
+        progressBar = view.findViewById(R.id.spinkit);
 
 
         Chart = view.findViewById(R.id.chart);
@@ -188,8 +193,10 @@ if (data1 != null){
                                 getActivity().runOnUiThread(new Runnable() {
                                     private Object ApiAdapter;
 
+
                                     @Override
                                     public void run() {
+                                        progressBar.setVisibility(View.GONE);
 
                                         RecyclerView recyclerView = view.findViewById(R.id.recyler);
                                         final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
@@ -199,8 +206,7 @@ if (data1 != null){
                                         ApiAdapter myAdapter = new ApiAdapter(Arrays.asList(mylist) , getActivity());
                                         recyclerView.setAdapter(myAdapter);
                                         firstcompletevisibleitem=0;
-                                       Visiblity = new ArrayList<>();
-                                       Visiblity.add(0 , 1);
+                                        Visiblity = new int[20] ;
 
 
                                         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -218,7 +224,7 @@ if (data1 != null){
 
 
 // To check if at the top of recycler view
-                                                if (layoutManager.findFirstCompletelyVisibleItemPosition() != firstcompletevisibleitem) {
+                                                if ((layoutManager.findFirstCompletelyVisibleItemPosition() != firstcompletevisibleitem)  && i>firstcompletevisibleitem)  {
                                                     // Its at top
                                                     firstcompletevisibleitem = layoutManager.findFirstCompletelyVisibleItemPosition();
                                                     if (firstcompletevisibleitem >= 0) {
@@ -236,10 +242,10 @@ if (data1 != null){
                                                         newview.setImageResource(R.drawable.rounded);
                                                         newview.setId(firstcompletevisibleitem);
                                                         relLayout.addView(newview);
-                                                        Visiblity.add(firstcompletevisibleitem, newview.getId());
+                                                        Visiblity[firstcompletevisibleitem]= newview.getId();
 
                                                         try {
-                                                            ImageView toremove = view.findViewById(Visiblity.get(firstcompletevisibleitem - 1));
+                                                            ImageView toremove = view.findViewById((Visiblity[firstcompletevisibleitem - 1]));
 
                                                             toremove.setVisibility(View.GONE);
                                                         } catch (Exception e) {

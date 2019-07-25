@@ -63,6 +63,9 @@ dependencies {
     implementation "com.squareup.okhttp3:okhttp:3.12.2"
 
     implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'com.github.ybq:Android-SpinKit:1.2.0'
+
+//    implementation 'com.github.jlmd:AnimatedCircleLoadingView:1.1.5@aar'
 
 
 }
