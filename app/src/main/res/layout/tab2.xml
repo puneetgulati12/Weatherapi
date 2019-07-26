@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="300dp" />
 <RelativeLayout
+
     android:layout_below="@id/chart"
     android:id="@+id/recylerv"
     android:layout_width="match_parent"
@@ -19,7 +20,7 @@
 
 
     <android.support.v7.widget.RecyclerView
-        android:layout_marginTop="30dp"
+
         android:id="@+id/recyler"
         android:layout_width="match_parent"
         android:layout_height="200dp" />
@@ -28,16 +29,14 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/spinkit"
         android:layout_centerInParent="true"
-        style="@style/SpinKitView.Large.WanderingCubes"
+        style="@style/SpinKitView.Large.FadingCircle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         app:SpinKit_Color="@color/colorAccent" />
 
     <View
-        android:layout_centerInParent="true"
 
-        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:background="#A90D85E4" />

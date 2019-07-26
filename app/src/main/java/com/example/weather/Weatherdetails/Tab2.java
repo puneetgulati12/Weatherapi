@@ -62,6 +62,8 @@ public class Tab2 extends Fragment {
     AnimationDrawable animationDrawable;
     ProgressBar progressBar;
 
+    int firstcompletevisibleitemnew;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -83,13 +85,12 @@ public class Tab2 extends Fragment {
         relLayout = view.findViewById(R.id.root);
 
 
-       Chart.getDescription().setEnabled(false);
+        Chart.getDescription().setEnabled(false);
 
         Chart.setTouchEnabled(true);
         Chart.setDragEnabled(true);
         Chart.setScaleEnabled(true);
         Chart.setPinchZoom(true);
-
 
 
         Legend l = Chart.getLegend();
@@ -106,7 +107,7 @@ public class Tab2 extends Fragment {
         y1.setTextColor(Color.WHITE);
         y1.getSpaceBottom();
 
-        Chart.animateXY(3000 , 3000);
+        Chart.animateXY(3000, 3000);
 
         final lists[] lists = new lists[]{};
         XAxis xAxis = Chart.getXAxis();
@@ -131,19 +132,17 @@ public class Tab2 extends Fragment {
 //            }
 //        });
 
-YAxis y12 = Chart.getAxisRight();
-y12.setEnabled(false);
+        YAxis y12 = Chart.getAxisRight();
+        y12.setEnabled(false);
 
-LineData data1 = Chart.getData();
-if (data1 != null){
-    LineData set = Chart.getData();
-    set.setValueTextColor(Color.WHITE);
-}
-
+        LineData data1 = Chart.getData();
+        if (data1 != null) {
+            LineData set = Chart.getData();
+            set.setValueTextColor(Color.WHITE);
+        }
 
 
         final LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-
 
 
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10, new LocationListener() {
@@ -178,16 +177,16 @@ if (data1 != null){
                                 final Api myobj = gson.fromJson(result, Api.class);
                                 String desc = myobj.list[0].weather[0].getMain();
                                 float temp1 = myobj.list[0].main.temp;
-                                Log.e("temp" , String.valueOf(temp1));
+                                Log.e("temp", String.valueOf(temp1));
                                 String time = myobj.list[0].getDt_txt();
-                                Log.e("" , time);
+                                Log.e("", time);
                                 getLineEntriesData(myobj);
 
                                 final lists mylist[] = myobj.list;
 
 
                                 if (getActivity() == null) {
-                                    Toast.makeText(getActivity() , "wait for sometime"  , Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getActivity(), "wait for sometime", Toast.LENGTH_SHORT).show();
                                     return;
                                 }
 
@@ -202,11 +201,11 @@ if (data1 != null){
                                         RecyclerView recyclerView = view.findViewById(R.id.recyler);
                                         final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
                                         recyclerView.setLayoutManager(layoutManager);
-                                        String initialtime="0";
-                                        int count =0;
+                                        String initialtime = "0";
+                                        int count = 0;
 
 
-                                        for (int k=0;k<mylist.length;k++) {
+                                        for (int k = 0; k < mylist.length; k++) {
 
                                             lists current = mylist[k];
                                             String s = current.getDt_txt();
@@ -217,17 +216,19 @@ if (data1 != null){
                                             }
 
                                             if (a.equals(initialtime) && k != 0) {
-                                               count=k+1;
-                                               break;
+                                                count = k + 1;
+                                                break;
                                             }
                                         }
-                                       List<lists> newList= Arrays.asList(mylist);
-                                        newList = newList.subList(0,count);
+                                        List<lists> newList = Arrays.asList(mylist);
+                                        newList = newList.subList(0, count);
 
-                                        ApiAdapter myAdapter = new ApiAdapter(newList , getActivity());
+                                        ApiAdapter myAdapter = new ApiAdapter(newList, getActivity());
                                         recyclerView.setAdapter(myAdapter);
-                                        firstcompletevisibleitem=0;
-                                        Visiblity = new int[20] ;
+                                        firstcompletevisibleitem = 0;
+                                        Visiblity = new int[20];
+
+                                        firstcompletevisibleitemnew = layoutManager.findFirstVisibleItemPosition();
 
 
                                         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -239,16 +240,63 @@ if (data1 != null){
 
                                             @Override
                                             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-
+                                                super.onScrolled(recyclerView, dx, dy);
 
 // Add this to your Recycler view
-                                                if (dy > 0) {
+//                                                if (dy < 0) {
+
 // To check if at the top of recycler view
+//                                                    if ((layoutManager.findFirstCompletelyVisibleItemPosition() != firstcompletevisibleitem) && i > firstcompletevisibleitem) {
+//                                                        // Its at top
+//
+//                                                        firstcompletevisibleitem = layoutManager.findFirstCompletelyVisibleItemPosition();
+//                                                        if (firstcompletevisibleitem >= 0) {
+//                                                            Log.d("scrolling up", "true");
+//                                                            try {
+//                                                                ArrayList<Float> pospoints = com.github.mikephil.charting.renderer.LineChartRenderer.DrawCircle(firstcompletevisibleitem);
+//
+//                                                                //to remove
+//
+//
+//                                                                ImageView newview = new ImageView(getActivity());
+//
+//                                                                RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(40, 40);
+//                                                                lp.leftMargin = Math.round(pospoints.get(0) - 20);
+//                                                                lp.topMargin = Math.round(pospoints.get(1) - 20);
+//                                                                newview.setLayoutParams(lp);
+//                                                                newview.setImageResource(R.drawable.rounded);
+//                                                                newview.setId(firstcompletevisibleitem);
+//                                                                relLayout.addView(newview);
+//                                                                Visiblity[firstcompletevisibleitem] = newview.getId();
+//
+//
+//
+//                                                                ImageView toremove = view.findViewById((Visiblity[firstcompletevisibleitem - 1]));
+//
+//                                                                toremove.setVisibility(View.GONE);
+//                                                            } catch (Exception e) {
+//                                                                e.printStackTrace();
+//                                                            }
+//
+//
+//                                                        }else {
+//
+//                                                            Log.d("scrolling down", "true");
+//
+//                                                        }
+//
+//                                                    }
+
+                                                int currentFirstvisible = layoutManager.findFirstVisibleItemPosition();
+
+                                                if (currentFirstvisible > firstcompletevisibleitemnew) {
+                                                    Log.i("RecyclerView scrolled: ", "scroll up!");
                                                     if ((layoutManager.findFirstCompletelyVisibleItemPosition() != firstcompletevisibleitem) && i > firstcompletevisibleitem) {
                                                         // Its at top
 
                                                         firstcompletevisibleitem = layoutManager.findFirstCompletelyVisibleItemPosition();
                                                         if (firstcompletevisibleitem >= 0) {
+
                                                             try {
                                                                 ArrayList<Float> pospoints = com.github.mikephil.charting.renderer.LineChartRenderer.DrawCircle(firstcompletevisibleitem);
 
@@ -274,25 +322,62 @@ if (data1 != null){
                                                                 e.printStackTrace();
                                                             }
 
+                                                        }
+                                                        Log.i("RecyclerView scrolled: ", "scroll up!");
+                                                    }
+                                                } else if (currentFirstvisible < firstcompletevisibleitemnew) {
+                                                    try {
+                                                        if (firstcompletevisibleitem >= 0) {
+                                                            firstcompletevisibleitem = layoutManager.findFirstCompletelyVisibleItemPosition();
+
+
+                                                            ImageView toshow = view.findViewById((Visiblity[firstcompletevisibleitem - 1]));
+
+                                                            toshow.setVisibility(View.VISIBLE);
+
+                                                            ImageView tohide = view.findViewById((Visiblity[firstcompletevisibleitem]));
+
+                                                            tohide.setVisibility(View.INVISIBLE);
+
 
                                                         }
-
+                                                    } catch (Exception e) {
+                                                        e.printStackTrace();
                                                     }
-
-
-                                                } else {
-                                                    Log.d("scrolling down","true");
-
+                                                    Log.i("RecyclerView scrolled: ", "scroll down!");
                                                 }
+
+                                                firstcompletevisibleitemnew = currentFirstvisible;
+
+
+//                                                } else if (dy > 0) {
+//                                                    if (firstcompletevisibleitem >= 0) {
+//                                                        Log.d("scrolling down", "true");
+
+//                                                        ImageView toshow = view.findViewById((Visiblity[firstcompletevisibleitem - 1]));
+//
+//                                                        toshow.setVisibility(View.VISIBLE);
+//
+//                                                        ImageView tohide = view.findViewById((Visiblity[firstcompletevisibleitem]));
+//
+//                                                        tohide.setVisibility(View.INVISIBLE);
+
+
+//                                                    }
+
+//                                                }
                                             }
+
                                         });
                                     }
+
                                 });
                             }
 
 
                         });
             }
+
 
             @Override
             public void onStatusChanged(String s, int i, Bundle bundle) {
@@ -310,15 +395,15 @@ if (data1 != null){
             }
         });
 
-        super.onViewCreated(view, savedInstanceState);
+        super.
+
+                onViewCreated(view, savedInstanceState);
     }
 
-    private LineData generateLineData(ArrayList<com.github.mikephil.charting.data.Entry> entries) {
+    private LineData generateLineData
+            (ArrayList<com.github.mikephil.charting.data.Entry> entries) {
 
         LineData d = new LineData();
-
-
-
 
 
         LineDataSet set = new LineDataSet(entries, "Line");
@@ -345,40 +430,36 @@ if (data1 != null){
         return d;
     }
 
-    private void getLineEntriesData(Api myObj){
+    private void getLineEntriesData(Api myObj) {
 
 
         ArrayList<com.github.mikephil.charting.data.Entry> entries = new ArrayList<>();
 
-            i=0;
-            boolean flag = false;
+        i = 0;
+        boolean flag = false;
         String k = myObj.list[i].getDt_txt();
         String initial = k.substring(k.indexOf(' ') + 1);
 
 
+        while (!(myObj.list[i + 1].getDt_txt().substring(myObj.list[i + 1].getDt_txt().indexOf(' ') + 1).equals(initial))) {
 
-            while (!(myObj.list[i+1].getDt_txt().substring(myObj.list[i+1].getDt_txt().indexOf(' ')+1).equals(initial))){
 
-
-                String s = String.valueOf(myObj.list[i].main.getTemp());
-                String a = s.substring(0, s.indexOf("."));
-                int temp = Integer.parseInt(a);
-                String b = myObj.list[i].getDt_txt();
-                String c =  b.substring(b.indexOf(' ')+1);
-                int time = Integer.parseInt(c.substring(0,c.indexOf(":")));
-                if (time == 0 ){
-                    flag = true;
-                }
-                if (flag) {
-                    entries.add(new Entry(time+24, temp));
-                }
-                else
-                {
-                    entries.add(new Entry(time, temp));
-                }
-                i++;
+            String s = String.valueOf(myObj.list[i].main.getTemp());
+            String a = s.substring(0, s.indexOf("."));
+            int temp = Integer.parseInt(a);
+            String b = myObj.list[i].getDt_txt();
+            String c = b.substring(b.indexOf(' ') + 1);
+            int time = Integer.parseInt(c.substring(0, c.indexOf(":")));
+            if (time == 0) {
+                flag = true;
             }
-
+            if (flag) {
+                entries.add(new Entry(time + 24, temp));
+            } else {
+                entries.add(new Entry(time, temp));
+            }
+            i++;
+        }
 
 
 //            final lists mylist[];
@@ -393,8 +474,9 @@ if (data1 != null){
 //        entries.add(new Entry(06, 307));
         generateLineData(entries);
 
-        return ;
+        return;
     }
+
     public abstract class MyXAxisValueFormatter implements IAxisValueFormatter, com.example.weather.Weatherdetails.MyXAxisValueFormatter {
 
         private lists[] mValues;
@@ -409,7 +491,9 @@ if (data1 != null){
             return String.valueOf(mValues[Integer.parseInt(value)]);
         }
 
-        /** this is only needed if numbers are returned, else return 0 */
+        /**
+         * this is only needed if numbers are returned, else return 0
+         */
 
         public int getDecimalDigits() {
             return 1;
